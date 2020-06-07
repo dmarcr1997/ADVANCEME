@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  get '/login', to: 'sessions#new'
+  root 'sessions#welcome'
+  get '/login/:id', to: 'sessions#new'
   get '/signup', to: 'users#new'
   get '/profile', to: 'users#show'
   resources :users, shallow: true do
