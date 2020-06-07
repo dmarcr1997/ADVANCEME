@@ -6,8 +6,10 @@ const userReducer = (state={
             case 'NEW_USER':
                 return{
                     ...state,
-                    id: action.id
+                    id: action.id,
                     username: action.username,
+                    goals: action.goals,
+                    skills: action.skills
                 }
             case 'GET_USER':
                 return{
