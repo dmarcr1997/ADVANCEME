@@ -7,14 +7,14 @@ import thunk from 'redux-thunk';
 import './index.css';
 import App from './App';
 import NavBar from './NavBar';
-
-
+import rootReducer from './reducers/rootReducer'
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <NavBar />
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
