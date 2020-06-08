@@ -1,15 +1,16 @@
 import React from 'react';
 
-const form = (props) => {
+const Form = (props) => {
     
     return(
         <div>
-            <form onSubmit={() => props.callBack}>
+            <form onSubmit={props.callBack}>
                 {props.inputs.map(inputName => <input name={inputName} type='text' onChange={props.handleChange} value={props.inputName}/>)}
-                <input type='submit'>{props.buttonTxt}</input>
+                <button type='submit'>Submit</button>
             </form>
         </div>
     )
 }
 
-export default form
+export default Form
+

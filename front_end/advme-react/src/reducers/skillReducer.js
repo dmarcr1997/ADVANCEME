@@ -11,7 +11,7 @@ const skillReducer = (state={
                     happiness: action.happiness
                 }
             case 'INCREASE_LEVEL':
-                newLvl = state.level + 1
+                let newLvl = state.level + 1
                 return{
                     ...state,
                     level: newLvl
