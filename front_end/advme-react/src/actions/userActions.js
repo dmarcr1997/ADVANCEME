@@ -1,22 +1,26 @@
+
+
 export const newUser = (inputs) => {
+        let userData = {'users': inputs}
        return (dispatch) => {
-           fetch('http://https://advance-me.herokuapp.com/users/new', {
-                method: 'GET',
+           fetch('https://advance-me.herokuapp.com/signup', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accepts': 'application/json'
                 },
-                body: JSON.stringify(inputs)})
+                body: JSON.stringify(userData)
+            })
             .then(resp => resp.json())
-            .then(data => dispatch({type: 'NEW_USER', action: data
-            }))
-        }
+            .then(data => dispatch({type: 'NEW_USER', action: data.data}))
+            .catch(error => console.log(error.message))
+        };
        
     } 
 
 export const getUser = (id) => {
         return (dispatch) => {
-            fetch(`http://https://advance-me.herokuapp.com/users/${id}`)
+            fetch(`https://advance-me.herokuapp.com/users/${id}`)
              .then(resp => resp.json())
              .then(data => dispatch({type: 'GET_USER', action: data}))
          }

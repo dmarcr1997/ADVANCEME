@@ -11,11 +11,10 @@ class FormContainer extends Component{
     }
     handleSubmit = event => {
         event.preventDefault();
-        debugger
+    
         let user={
             username: event.target.username.value,
-            password: event.target.password.value,
-            
+            password_digest: event.target.password.value,        
         }
         switch(this.props.type){
             case 'login':
