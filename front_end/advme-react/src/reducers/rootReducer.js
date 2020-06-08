@@ -8,3 +8,5 @@ const rootReducer = combineReducers({
     skill: skillReducer,
     goal: goalReducer
 })
+
+export default rootReducer
