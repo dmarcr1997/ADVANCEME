@@ -56,17 +56,16 @@ class App extends Component{
     return console.log('New Links')
   }
 
-  handleLogout = (log) => {
-      this.setState({
-        user: {
-          username:"",
-          skills: [],
-          goals: []
-        },
-        loggedIn: false,
-        links: []
-      })
-      console.log(log)
+  handleLogout = () => {
+    this.setState({
+      user: {
+        username:"",
+        skills: [],
+        goals: []
+      },
+      loggedIn: false,
+      links: []
+    })
   }
   
   render(){
@@ -83,7 +82,7 @@ class App extends Component{
           <Route path='/home' render={(props) => <UserContainer {...props} user={this.state.user} renderLinks={this.addLinks}/>} />
           <Route path='/skills' render={(props) => <Skills {...props} skills={this.state.skills} renderLinks={this.addLinks}/>} />
           <Route path='/goals' render={(props) => <Goals {...props} goals={this.state.goals} renderLinks={this.addLinks}/>} />
-          <Route path='/logout' render={(props) => <Logout {...props} logout={this.handleLogout}/> } />
+          <Route path='/logout' render={(props) => <Logout {...props} userLogout={this.handleLogout}/> } />
         </Router>
       </header>
     </div>

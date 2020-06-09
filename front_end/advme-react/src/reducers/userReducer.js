@@ -19,8 +19,10 @@ const userReducer = (state={
                 }
             case 'NEW_SKILL':
                 console.log(action)
+                break
             case 'INCREASE_SKILL':
                 console.log(action)
+                break
             default:
                 return state
         }
