@@ -6,8 +6,8 @@ import thunk from 'redux-thunk';
 import './index.css';
 import App from './App';
 // import NavBar from './NavBar';
-import rootReducer from './reducers/rootReducer'
-const store = createStore(rootReducer, applyMiddleware(thunk))
+import userReducer from './reducers/userReducer'
+const store = createStore(userReducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <Provider store={store}>

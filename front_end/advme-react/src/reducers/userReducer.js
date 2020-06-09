@@ -1,7 +1,9 @@
 const userReducer = (state={
+    id: '',
     username: '',
     goals: [],
-    skills: []}, action) => {
+    skills: []
+    }, action) => {
         switch(action.type){
             case 'NEW_USER':
                 return{
@@ -13,10 +15,7 @@ const userReducer = (state={
                 }
             case 'GET_USER':
                 return{
-                    ...state,
-                    username: action.action.attributes.username
-                    // goals: action.attributes.goals,
-                    // skills: action.attributes.skills
+                    ...state, username: action.user.attributes.username, id: action.user.id
                 }
             default:
                 return state

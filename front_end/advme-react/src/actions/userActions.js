@@ -29,7 +29,7 @@ export const getUser = (user) => {
                 body: JSON.stringify(user)
             })
              .then(resp => resp.json())
-             .then(data => dispatch({type: 'GET_USER', action: data.data}))
+             .then(data => dispatch({type: 'GET_USER', user: data.data}))
              .catch(error => console.log(error.message))
          }
     }

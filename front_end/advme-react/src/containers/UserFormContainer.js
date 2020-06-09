@@ -3,15 +3,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Form from '../components/Form';
 import {newUser, getUser} from '../actions/userActions';
+import { Redirect } from 'react-router-dom';
 
 class FormContainer extends Component{
-    state = {
-        username: '',
-        password: '',
-    }
+    
     handleSubmit = event => {
         event.preventDefault();
-    
         let user={
             username: event.target.username.value,
             password_digest: event.target.password.value,        
@@ -19,29 +16,20 @@ class FormContainer extends Component{
         
         switch(this.props.type){
             case 'login':
-                this.props.login(user, this.props.loginCall())
-                this.props.loginCall()
+                this.props.login(user)
                 break
             case 'signup':
-                this.props.signup(user, this.props.loginCall())
-                this.props.loginCall()
+                this.props.signup(user)
                 break
             default:
                 console.log(this.state)
         }
-        
-        this.setState({
-            username:'',
-            password:''
-        })
-        
-    }
+        setTimeout(() => {
+            console.log(this.props.user_id)
+            this.props.passBack(this.props.user)
+        }, 1000)
+      }
 
-    handleChange = event => {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
     
     render(){
         const inputs =['username', 'password'];
@@ -49,18 +37,22 @@ class FormContainer extends Component{
             <>
                 <h1>ADVANCEME</h1>
                 <h3>{this.props.type}</h3>
-                <Form callBack={this.handleSubmit} handleChange={this.handleChange} inputs={inputs} type={this.props.type} loginCall={this.props.login}/>
+                <Form callBack={this.handleSubmit} inputs={inputs} type={this.props.type} passBack={this.props.passBack}/>
             </>
         )
     }
 
-    }
-
-    const mapDispatchToProps = dispatch => {
-        return{
-            login: userData => dispatch(getUser(userData)),
-            signup: userData => dispatch(newUser(userData))
-        }
 }
-
-export default connect(null, mapDispatchToProps)(FormContainer)
+const mapStateToProps = state => {
+    return({
+      user: state.username,
+      user_id: state.id
+    })
+  }
+  const mapDispatchToProps = dispatch => {
+    return{
+        login: userData => dispatch(getUser(userData)),
+        signup: userData => dispatch(newUser(userData))
+    }
+  }
+export default connect(mapStateToProps, mapDispatchToProps)(FormContainer)
