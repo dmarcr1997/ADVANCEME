@@ -6,7 +6,11 @@ import {newUser, getUser} from '../actions/userActions';
 
 
 class FormContainer extends Component{
-    
+    componentDidMount(){
+        const links = ['login', 'signup']
+        this.props.renderLinks(links)
+
+    }
     handleSubmit = event => {
         event.preventDefault();
         let user={

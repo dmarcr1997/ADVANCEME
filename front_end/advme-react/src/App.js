@@ -77,10 +77,10 @@ class App extends Component{
           {/* {this.redirectToLocation()} */}
           {this.renderNavBar()}
           {this.redirectToProfile()}
-          <Route path='/login' render={(props) => <UserFormContainer {...props} type={'login'} passBack={this.userInfo}/> } />
-          <Route path='/signup' render={(props) => <UserFormContainer {...props} type={'signup'} passBack={this.userInfo}/> } />
+          <Route path='/login' render={(props) => <UserFormContainer {...props} type={'login'} passBack={this.userInfo}  renderLinks={this.addLinks}/> } />
+          <Route path='/signup' render={(props) => <UserFormContainer {...props} type={'signup'} passBack={this.userInfo}  renderLinks={this.addLinks}/> } />
           <Route path='/home' render={(props) => <UserContainer {...props} user={this.state.user} renderLinks={this.addLinks}/>} />
-          <Route path='/skills' render={(props) => <Skills {...props} skills={this.state.skills} renderLinks={this.addLinks}/>} />
+          <Route path='/skills' render={(props) => <Skills {...props} renderLinks={this.addLinks}/>} />
           <Route path='/goals' render={(props) => <Goals {...props} goals={this.state.goals} renderLinks={this.addLinks}/>} />
           <Route path='/logout' render={(props) => <Logout {...props} userLogout={this.handleLogout}/> } />
         </Router>
