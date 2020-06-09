@@ -16,7 +16,7 @@
 
     export const increaseSkill = (user_id, skill_id) => {
         return (dispatch) => {
-            fetch(`http://https://advance-me.herokuapp.com/users/${user_id}/goals/${skill_id}`)
+            fetch(`http://https://advance-me.herokuapp.com/users/${user_id}/skills/${skill_id}`)
              .then(resp => resp.json())
              .then(data => dispatch({type: 'INCREASE_SKILL', action: data}))
          }

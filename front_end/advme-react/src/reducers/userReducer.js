@@ -17,6 +17,10 @@ const userReducer = (state={
                 return{
                     ...state, username: action.user.attributes.username, id: action.user.id
                 }
+            case 'NEW_SKILL':
+                console.log(action)
+            case 'INCREASE_SKILL':
+                console.log(action)
             default:
                 return state
         }

@@ -25,35 +25,13 @@ class App extends Component{
   redirectToProfile = () => {
     if (this.state.loggedIn === true)
       return(
-        <Redirect to='/profile' />
+        <Redirect to='/home' />
       )
     else
         return(
           <Redirect to='/login' />
       )
   }
-
-  // redirectSetup = (desLocation) =>{
-  //   this.setState({
-  //     redirect: true,
-  //     location: desLocation
-  //   })
-  // }
-
-  // redirectToLocation = () =>{
-  //   if(this.state.redirect === true){
-  //     this.setState({
-  //       redirect: false
-  //     })
-  //     console.log(this.state)
-  //     return(
-  //       <Redirect to={`/${this.state.location}`} />
-  //     )
-  //   }
-  //   else{
-  //     return
-  //   }
-  // }
 
   renderNavBar = () => {
     return(
@@ -74,13 +52,14 @@ class App extends Component{
   return (
     <div className="App">
       <header className="App-header">
+      <h1>ADVANCEME</h1>
         <Router>
           {/* {this.redirectToLocation()} */}
           {this.renderNavBar()}
           {this.redirectToProfile()}
           <Route path='/login' render={(props) => <UserFormContainer {...props} type={'login'} passBack={this.userInfo}/> } />
           <Route path='/signup' render={(props) => <UserFormContainer {...props} type={'signup'} passBack={this.userInfo}/> } />
-          <Route path='/profile' render={(props) => <UserContainer {...props} user={this.state.user} renderLinks={this.addLinks}/>} />
+          <Route path='/home' render={(props) => <UserContainer {...props} user={this.state.user} renderLinks={this.addLinks}/>} />
           <Route path='/skills' render={(props) => <Skills {...props} user={this.state.user} train={false} renderLinks={this.addLinks}/>} />
           <Route path='/goals' render={(props) => <Goals {...props} user={this.state.user} renderLinks={this.addLinks}/>} />
           <Route path='/train' render={(props) => <Skills {...props} user={this.state.user} train={true} renderLinks={this.addLinks}/>} /> 

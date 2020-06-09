@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Form from '../components/Form';
 import {newUser, getUser} from '../actions/userActions';
-import { Redirect } from 'react-router-dom';
+
 
 class FormContainer extends Component{
     
@@ -35,7 +35,6 @@ class FormContainer extends Component{
         const inputs =['username', 'password'];
         return(
             <>
-                <h1>ADVANCEME</h1>
                 <h3>{this.props.type}</h3>
                 <Form callBack={this.handleSubmit} inputs={inputs} type={this.props.type} passBack={this.props.passBack}/>
             </>
