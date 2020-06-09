@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 class Goals extends Component{
     componentDidMount(){
-        const links = ['home', 'skills', 'train']
+        const links = ['home', 'skills', 'logout']
         this.props.renderLinks(links)
     }
     renderGoals(){

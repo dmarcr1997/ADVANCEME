@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 class UserContainer extends Component{
     componentDidMount(){
-        const links = ['skills', 'goals', 'train']
+        const links = ['skills', 'goals', 'logout']
         this.props.renderLinks(links)
     }
     render(){

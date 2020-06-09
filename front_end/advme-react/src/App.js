@@ -6,18 +6,25 @@ import Goals from './components/Goals';
 import UserFormContainer from './containers/UserFormContainer.js';
 import UserContainer from './containers/UserContainer';
 import NavBar from './components/NavBar';
-
+import Logout from './components/Logout';
 class App extends Component{
   state={
-    user: "",
+    user: {
+      username:"",
+      skills: [],
+      goals: []
+    },
     loggedIn: false,
-    redirect: false,
-    location: "",
     links: []
   }
-  userInfo = (loggedUser) =>{
+  userInfo = (loggedUser, skills, goals) =>{
     this.setState({
-      user: loggedUser,
+      ...this.state,
+      user: {
+        username: loggedUser,
+        skills,
+        goals
+      },
       loggedIn: true
     })
    
@@ -43,11 +50,25 @@ class App extends Component{
   
   addLinks = (navLinks) => {
     this.setState({
+      ...this.state,
       links: navLinks
     })
     return console.log('New Links')
   }
 
+  handleLogout = (log) => {
+      this.setState({
+        user: {
+          username:"",
+          skills: [],
+          goals: []
+        },
+        loggedIn: false,
+        links: []
+      })
+      console.log(log)
+  }
+  
   render(){
   return (
     <div className="App">
@@ -60,10 +81,9 @@ class App extends Component{
           <Route path='/login' render={(props) => <UserFormContainer {...props} type={'login'} passBack={this.userInfo}/> } />
           <Route path='/signup' render={(props) => <UserFormContainer {...props} type={'signup'} passBack={this.userInfo}/> } />
           <Route path='/home' render={(props) => <UserContainer {...props} user={this.state.user} renderLinks={this.addLinks}/>} />
-          <Route path='/skills' render={(props) => <Skills {...props} user={this.state.user} train={false} renderLinks={this.addLinks}/>} />
-          <Route path='/goals' render={(props) => <Goals {...props} user={this.state.user} renderLinks={this.addLinks}/>} />
-          <Route path='/train' render={(props) => <Skills {...props} user={this.state.user} train={true} renderLinks={this.addLinks}/>} /> 
-     
+          <Route path='/skills' render={(props) => <Skills {...props} skills={this.state.skills} renderLinks={this.addLinks}/>} />
+          <Route path='/goals' render={(props) => <Goals {...props} goals={this.state.goals} renderLinks={this.addLinks}/>} />
+          <Route path='/logout' render={(props) => <Logout {...props} logout={this.handleLogout}/> } />
         </Router>
       </header>
     </div>

@@ -26,7 +26,7 @@ class FormContainer extends Component{
         }
         setTimeout(() => {
             console.log(this.props.user_id)
-            this.props.passBack(this.props.user)
+            this.props.passBack(this.props.user, this.props.skills, this.props.goals)
         }, 1000)
       }
 
@@ -45,6 +45,8 @@ class FormContainer extends Component{
 const mapStateToProps = state => {
     return({
       user: state.username,
+      skills: state.skills,
+      goals: state.goals,
       user_id: state.id
     })
   }
