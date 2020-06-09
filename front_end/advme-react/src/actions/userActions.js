@@ -18,10 +18,18 @@ export const newUser = (inputs) => {
        
     } 
 
-export const getUser = (id) => {
+export const getUser = (user) => {
         return (dispatch) => {
-            fetch(`https://advance-me.herokuapp.com/users/${id}`)
+            fetch('https://advance-me.herokuapp.com/login',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accepts': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
              .then(resp => resp.json())
-             .then(data => dispatch({type: 'GET_USER', action: data}))
+             .then(data => dispatch({type: 'GET_USER', action: data.data}))
+             .catch(error => console.log(error.message))
          }
     }

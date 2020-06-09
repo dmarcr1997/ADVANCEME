@@ -16,20 +16,25 @@ class FormContainer extends Component{
             username: event.target.username.value,
             password_digest: event.target.password.value,        
         }
+        
         switch(this.props.type){
             case 'login':
-                this.props.login(user)
+                this.props.login(user, this.props.loginCall())
+                this.props.loginCall()
                 break
             case 'signup':
-                this.props.signup(user)
+                this.props.signup(user, this.props.loginCall())
+                this.props.loginCall()
                 break
             default:
                 console.log(this.state)
         }
+        
         this.setState({
             username:'',
             password:''
         })
+        
     }
 
     handleChange = event => {
@@ -42,7 +47,9 @@ class FormContainer extends Component{
         const inputs =['username', 'password'];
         return(
             <>
-                <Form callBack={this.handleSubmit} handleChange={this.handleChange} inputs={inputs} type={this.props.type}/>
+                <h1>ADVANCEME</h1>
+                <h3>{this.props.type}</h3>
+                <Form callBack={this.handleSubmit} handleChange={this.handleChange} inputs={inputs} type={this.props.type} loginCall={this.props.login}/>
             </>
         )
     }
@@ -51,7 +58,7 @@ class FormContainer extends Component{
 
     const mapDispatchToProps = dispatch => {
         return{
-            login: userId => dispatch(getUser(userId)),
+            login: userData => dispatch(getUser(userData)),
             signup: userData => dispatch(newUser(userData))
         }
 }
