@@ -5,14 +5,15 @@ import Skills from './components/Skills';
 import Goals from './components/Goals';
 import UserFormContainer from './containers/UserFormContainer.js';
 import UserContainer from './containers/UserContainer';
-
+import NavBar from './components/NavBar';
 
 class App extends Component{
   state={
     user: "",
     loggedIn: false,
     redirect: false,
-    location: ""
+    location: "",
+    links: []
   }
   userInfo = (loggedUser) =>{
     this.setState({
@@ -32,22 +33,41 @@ class App extends Component{
       )
   }
 
-  redirectSetup = (desLocation) =>{
-    this.setState({
-      redirect: true,
-      location: desLocation
-    })
-  }
+  // redirectSetup = (desLocation) =>{
+  //   this.setState({
+  //     redirect: true,
+  //     location: desLocation
+  //   })
+  // }
 
-  redirectToLocation = () =>{
-    if(this.state.redirect === true){
-      this.setState({
-        redirect: false,
-      })
-      return(
-        <Redirect to={`/${this.state.location}`} />
-      )
-    }
+  // redirectToLocation = () =>{
+  //   if(this.state.redirect === true){
+  //     this.setState({
+  //       redirect: false
+  //     })
+  //     console.log(this.state)
+  //     return(
+  //       <Redirect to={`/${this.state.location}`} />
+  //     )
+  //   }
+  //   else{
+  //     return
+  //   }
+  // }
+
+  renderNavBar = () => {
+    return(
+        <div>
+            <NavBar links = {this.state.links}/>
+        </div>
+    )
+  } 
+  
+  addLinks = (navLinks) => {
+    this.setState({
+      links: navLinks
+    })
+    return console.log('New Links')
   }
 
   render(){
@@ -55,14 +75,16 @@ class App extends Component{
     <div className="App">
       <header className="App-header">
         <Router>
+          {/* {this.redirectToLocation()} */}
+          {this.renderNavBar()}
           {this.redirectToProfile()}
           <Route path='/login' render={(props) => <UserFormContainer {...props} type={'login'} passBack={this.userInfo}/> } />
           <Route path='/signup' render={(props) => <UserFormContainer {...props} type={'signup'} passBack={this.userInfo}/> } />
-          <Route path='/profile' render={(props) => <UserContainer {...props} user={this.state.user} redirect={this.redirectSetup}/>} />
-          <Route path='/skills' render={(props) => <Skills {...props} user={this.state.user} train={false} redirect={this.redirectSetup}/>} />
-          <Route path='/goals' render={(props) => <Goals {...props} user={this.state.user} redirect={this.redirectSetup}/>} />
-          <Route path='/skills/train' render={(props) => <Skills {...props} user={this.state.user} train={true} redirect={this.redirectSetup}/>} /> 
-          {this.redirectToLocation()}
+          <Route path='/profile' render={(props) => <UserContainer {...props} user={this.state.user} renderLinks={this.addLinks}/>} />
+          <Route path='/skills' render={(props) => <Skills {...props} user={this.state.user} train={false} renderLinks={this.addLinks}/>} />
+          <Route path='/goals' render={(props) => <Goals {...props} user={this.state.user} renderLinks={this.addLinks}/>} />
+          <Route path='/train' render={(props) => <Skills {...props} user={this.state.user} train={true} renderLinks={this.addLinks}/>} /> 
+     
         </Router>
       </header>
     </div>

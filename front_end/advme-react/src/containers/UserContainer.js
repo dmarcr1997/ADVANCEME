@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 class UserContainer extends Component{
-    renderNavBar = () => {
-        //create navbar to go here
-        return(
-            <div>
-            
-            </div>
-        )
-    } 
+    componentDidMount(){
+        const links = ['skills', 'goals', 'train']
+        this.props.renderLinks(links)
+    }
     render(){
         return(
             <>
                 <h3>Profile</h3>
+                
                 <ul>
-                    {/* {this.renderNavBar()} */}
                 </ul>
                 <p>
                     Name: {this.props.user}
