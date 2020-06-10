@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_07_174656) do
+ActiveRecord::Schema.define(version: 2020_06_10_134751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,12 +20,14 @@ ActiveRecord::Schema.define(version: 2020_06_07_174656) do
     t.datetime "timeframe"
     t.integer "exp"
     t.boolean "ended"
+    t.integer "user_id"
   end
 
   create_table "skills", force: :cascade do |t|
     t.string "name"
     t.integer "level"
     t.integer "happiness"
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|

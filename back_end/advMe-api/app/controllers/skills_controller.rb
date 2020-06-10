@@ -12,6 +12,8 @@ class SkillsController < ApplicationController
     def new
         user = User.find_by(id: params[:user_id])
         skill = Skill.new(skill_params)
+        skill.level = 0
+        skill.happiness = 5
         skill.user = user
         if skill.save
             render json: SkillSerializer.new(user.skills)
@@ -42,7 +44,7 @@ class SkillsController < ApplicationController
     private
 
     def skill_params
-        params.require(:skills).permit(:name, :level, :happiness, :user_id, :skill_id)
+        params.require(:skills).permit(:name, :user_id)
     end
 
 end

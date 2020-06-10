@@ -31,7 +31,7 @@ class FormContainer extends Component{
         setTimeout(() => {
             console.log(this.props.user_id)
             this.props.passBack(this.props.user, this.props.skills, this.props.goals)
-        }, 1000)
+        }, 2000)
       }
 
     

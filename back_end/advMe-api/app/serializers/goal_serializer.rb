@@ -1,4 +1,4 @@
 class GoalSerializer
   include FastJsonapi::ObjectSerializer
-  attributes 
+  attributes :name, :timeframe, :exp
 end

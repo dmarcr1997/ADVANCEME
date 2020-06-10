@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
     def new
         puts params
-        user = User.find_by(username: params[:username])
+        user = User.find_by(username: session_params[:username])
         if user
             render json: UserSerializer.new(user)
         else
@@ -11,5 +11,10 @@ class SessionsController < ApplicationController
 
     def welcome
         render json: {welcome: 'WELCOME'}
+    end
+
+    private
+    def session_params
+        params.require(:users).permit(:username, :password_digest)
     end
 end

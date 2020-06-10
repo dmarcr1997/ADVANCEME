@@ -7,6 +7,7 @@ class UserContainer extends Component{
         this.props.renderLinks(links)
     }
     render(){
+        console.log(this.props.user)
         return(
             <>
                 <h3>Profile</h3>

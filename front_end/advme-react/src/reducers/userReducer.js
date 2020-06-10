@@ -15,14 +15,27 @@ const userReducer = (state={
                 }
             case 'GET_USER':
                 return{
-                    ...state, username: action.user.attributes.username, id: action.user.id
+                    ...state, username: action.user.attributes.username, id: action.user.id, skills: action.user.attributes.skills
                 }
             case 'NEW_SKILL':
-                console.log(action)
-                break
+               
+                let allSkills = action.action.data.map(skill => {
+                    return{
+                    'id': skill.id, 
+                    'name': skill.attributes.name, 
+                    'level': skill.attributes.level, 
+                    'happiness': skill.attributes.happiness, 
+                    'user_id': skill.attributes.user_id
+                    }
+                })
+                console.log(allSkills)
+                debugger
+                return{
+                    ...state, 
+                    skills: allSkills
+                }
             case 'INCREASE_SKILL':
-                console.log(action)
-                break
+               return state
             default:
                 return state
         }
