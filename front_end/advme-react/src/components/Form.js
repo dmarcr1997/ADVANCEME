@@ -10,6 +10,16 @@ const Form = (props) => {
         else
         return
     }
+    function dateTime(){
+        if(props.hasDateTime){
+            return(
+                <>
+                    <label>Date</label>
+                    <input type='date' name='datetime' />
+                </>
+            )
+        }
+    }
     return(
         <div>
             <form onSubmit={props.callBack}>
@@ -24,6 +34,7 @@ const Form = (props) => {
                 )
                 }
                 {renderHiddenField()}
+                {dateTime()}
                 <button type='submit'>Submit</button>
             </form>
         </div>

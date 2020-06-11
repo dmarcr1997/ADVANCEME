@@ -29,7 +29,7 @@ class Skills extends Component{
                     <h3>Goals</h3>
                     {this.props.goals.map((goal => <Goal user_id={this.props.user_id} goal={goal} complete={this.props.endGoal}/>))}
                     <button onClick={() => this.toggle()}>New Goal</button>
-                    {this.renderForm(['name', 'datetime'], this.handleGoalSubmit)}
+                    {this.renderForm(['name'], this.handleGoalSubmit, true)}
                     </div>
                     )
             case 'default':
@@ -64,10 +64,10 @@ class Skills extends Component{
         })
     }
     
-    renderForm = (inp, func) =>{
+    renderForm = (inp, func, date) =>{
         const formInputs = inp;
         if(this.state.toggle === true)
-        return(<Form callBack={func} inputs={formInputs} hasHidden={true} hiddenVal={this.props.user_id}/>)
+        return(<Form callBack={func} hasDateTime={date} inputs={formInputs} hasHidden={true} hiddenVal={this.props.user_id}/>)
         else
         return
     }
