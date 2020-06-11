@@ -1,21 +1,22 @@
 const userReducer = (state={
     id: '',
     username: '',
+    userLevel: 0,
     goals: [],
     skills: []
     }, action) => {
         switch(action.type){
             case 'NEW_USER':
                 return{
-                    ...state,
-                    id: action.id,
-                    username: action.attributes.username,
-                    goals: action.goals,
-                    skills: action.skills
+                    id: action.user.id,
+                    username: action.user.attributes.username,
+                    userLevel: action.user.attributes.user_level,
+                    goals: action.user.attributes.goals,
+                    skills: action.user.attributes.skills
                 }
             case 'GET_USER':
                 return{
-                    ...state, username: action.user.attributes.username, id: action.user.id, skills: action.user.attributes.skills, goals: action.user.attributes.goals
+                    username: action.user.attributes.username,  userLevel: action.user.attributes.user_level, id: action.user.id, skills: action.user.attributes.skills, goals: action.user.attributes.goals
                 }
             case 'NEW_SKILL':
                 return{
@@ -25,6 +26,7 @@ const userReducer = (state={
             case 'INCREASE_SKILL':
                return {
                    ...state,
+                   userLevel: updateUserLevel(state.userLevel, 'skill'),
                    skills: allSkills(action.action.data)
                }
             case 'NEW_GOAL':
@@ -34,9 +36,9 @@ const userReducer = (state={
                     goals: allGoals(action.action.data)
                 }
             case 'END_GOAL':
-                  debugger
                 return{
                     ...state, 
+                    userLevel: updateUserLevel(state.userLevel,'goal'),
                     goals: allGoals(action.action.data)
                 }
             default:
@@ -76,5 +78,16 @@ const userReducer = (state={
             )
         )
     }
+
+    let updateUserLevel = (level, type) => {
+        switch(type){
+            case 'skill':
+                return level + (0.25)
+            case 'goal':
+                return level + 1
+            default:
+                return
+        }
+    } 
 
 export default userReducer

@@ -16,7 +16,8 @@ class SkillsController < ApplicationController
         puts skill_params
         skill = Skill.find_by(id: skill_params[:skill_id])
         user = User.find_by(id: skill_params[:user_id])
-        user.user_level += 0.25/10
+        user.user_level += 0.25
+        user.save
         skill.level += 0.25
         sortedSkills = user.skills.sort_by { |obj| obj.name }
         if skill.save 

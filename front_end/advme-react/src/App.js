@@ -10,17 +10,19 @@ class App extends Component{
   state={
     user: {
       username:"",
+      userLevel: 0,
       skills: [],
       goals: []
     },
     loggedIn: false,
     links: []
   }
-  userInfo = (loggedUser, skills, goals) =>{
+  userInfo = (loggedUser, level, skills, goals) =>{
     this.setState({
       ...this.state,
       user: {
         username: loggedUser,
+        userLevel: level,
         skills,
         goals
       },

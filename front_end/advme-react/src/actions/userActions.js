@@ -12,7 +12,7 @@ export const newUser = (inputs) => {
                 body: JSON.stringify(userData)
             })
             .then(resp => resp.json())
-            .then(data => dispatch({type: 'NEW_USER', action: data.data}))
+            .then(data => dispatch({type: 'NEW_USER', user: data.data}))
             .catch(error => console.log(error.message))
         };
        

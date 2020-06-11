@@ -13,7 +13,16 @@ const Form = (props) => {
     return(
         <div>
             <form onSubmit={props.callBack}>
-                {props.inputs.map(inputName => <input name={inputName} type='text'/>)}
+                {props.inputs.map((inputName) => {
+                    return(
+                        <div>
+                            <label>{inputName}</label>
+                            <input name={inputName} type='text'/><br/>
+                        </div>
+                        )
+                    }
+                )
+                }
                 {renderHiddenField()}
                 <button type='submit'>Submit</button>
             </form>

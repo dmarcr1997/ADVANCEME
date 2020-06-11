@@ -12,10 +12,9 @@ class UserContainer extends Component{
             <>
                 <h3>Profile</h3>
                 
-                <ul>
-                </ul>
                 <p>
-                    Name: {this.props.user}
+                    Name: {this.props.user}<br></br>
+                    Level: {this.props.userLevel}
                 </p>
 
                 <p>
@@ -34,6 +33,7 @@ const mapStateToProps = (state) => {
     console.log(state)
     return({
         user: state.username,
+        userLevel: state.userLevel,
         skills: state.skills,
         goals: state.goals
     })
