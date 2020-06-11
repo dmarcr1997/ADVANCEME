@@ -37,7 +37,6 @@ const Skill = (props) => {
             <ul>
                 <li>Level: {props.skill.level}</li>
                 <div style={barStyle}><div style={progStyle}></div></div>
-                <li>Happiness: {props.skill.happiness}</li>
                 <button onClick={() => trainSkill()}>Train</button>
             </ul>
         </div>

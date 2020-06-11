@@ -6,6 +6,33 @@ class UserContainer extends Component{
         const links = ['skills', 'goals', 'logout']
         this.props.renderLinks(links)
     }
+    renderGoals = () => {
+        return this.props.goals.map(goal =>{ 
+            if(goal.ended === false){
+            return(<div>{goal.name}<br/>{goal.level}</div>)
+            }
+        })
+            
+    }
+    renderSkills = () => {
+        let displaySkills = []
+        let sortedSkills = this.props.skills.sort((a, b) =>{ 
+            if(a.lastTrain > b.lastTrain){
+               return -1
+           }
+           else if(a.lastTrain < b.lastTrain){
+               return 1
+           }
+           else
+               return 0
+           }
+        )
+        for(let i = 0; i < 5; i ++){
+            if (sortedSkills[i])
+            displaySkills.push(sortedSkills[i])
+        }
+        return displaySkills.map(skill => <div>{skill.name}<br/>{skill.level}</div>)
+    }
     render(){
         console.log(this.props.user)
         return(
@@ -13,16 +40,16 @@ class UserContainer extends Component{
                 <h3>Profile</h3>
                 
                 <p>
-                    Name: {this.props.user}<br></br>
+                    Name: {this.props.user}<br/>
                     Level: {this.props.userLevel}
                 </p>
 
                 <p>
-                    Upcoming Goals: {this.props.goals.map(goal => <ul><li>{goal.name}</li><li>{goal.level}</li></ul>)}
+                    Upcoming Goals:{this.renderGoals()}
                 </p>
 
                 <p>
-                    Recent Training: {this.props.skills.map(skill => <ul><li>{skill.name}</li><li>{skill.level}</li></ul>)}
+                    Recent Training:{this.renderSkills()}
                 </p>
             </>
         )

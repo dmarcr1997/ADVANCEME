@@ -70,6 +70,7 @@ const userReducer = (state={
                 return{
                     'id': skill.id, 
                     'name': skill.attributes.name, 
+                    'lastTrain': skill.attributes.last_train,
                     'level': skill.attributes.level, 
                     'happiness': skill.attributes.happiness, 
                     'user_id': skill.attributes.user_id

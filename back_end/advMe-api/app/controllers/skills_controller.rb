@@ -13,18 +13,15 @@ class SkillsController < ApplicationController
     end
 
     def edit
-        puts skill_params
         skill = Skill.find_by(id: skill_params[:skill_id])
         user = User.find_by(id: skill_params[:user_id])
         user.user_level += 0.25
         user.save
         skill.level += 0.25
+        skill.last_train = DateTime.now()
+        skill.save
         sortedSkills = user.skills.sort_by { |obj| obj.name }
-        if skill.save 
-            render json: SkillSerializer.new(sortedSkills)
-        else
-            render json: {error: 'Invalid Update'}
-        end
+        render json: SkillSerializer.new(sortedSkills)
     end
 
     private

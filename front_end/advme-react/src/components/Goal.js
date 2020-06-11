@@ -14,14 +14,17 @@ const Goal = (props) => {
     }
     // debugger
     return(
-        <div>
+        <tr>
+            <td>
             {props.goal.name}
-            <ul>
-                <li>Due: {props.goal.timeframe}</li>
-                <li>ended: {renderEnded()}</li>
-                
-            </ul>
-        </div>
+            </td>
+            <td>
+            {props.goal.timeframe}
+            </td>
+            <td>    
+                {renderEnded()}
+            </td>
+        </tr>
     )
 } 
 

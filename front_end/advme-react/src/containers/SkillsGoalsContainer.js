@@ -27,7 +27,14 @@ class Skills extends Component{
                 return(
                     <div>
                     <h3>Goals</h3>
+                    <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
                     {this.props.goals.map((goal => <Goal user_id={this.props.user_id} goal={goal} complete={this.props.endGoal}/>))}
+                    </table>
                     <button onClick={() => this.toggle()}>New Goal</button>
                     {this.renderForm(['name'], this.handleGoalSubmit, true)}
                     </div>
