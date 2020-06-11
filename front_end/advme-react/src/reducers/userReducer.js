@@ -4,6 +4,7 @@ const userReducer = (state={
     goals: [],
     skills: []
     }, action) => {
+        let allSkills;
         switch(action.type){
             case 'NEW_USER':
                 return{
@@ -18,8 +19,7 @@ const userReducer = (state={
                     ...state, username: action.user.attributes.username, id: action.user.id, skills: action.user.attributes.skills
                 }
             case 'NEW_SKILL':
-               
-                let allSkills = action.action.data.map(skill => {
+                allSkills = action.action.data.map(skill => {
                     return{
                     'id': skill.id, 
                     'name': skill.attributes.name, 
@@ -29,16 +29,28 @@ const userReducer = (state={
                     }
                 })
                 console.log(allSkills)
-                debugger
                 return{
                     ...state, 
                     skills: allSkills
                 }
             case 'INCREASE_SKILL':
-               return state
+                allSkills = action.action.data.map(skill => {
+                    return{
+                    'id': skill.id, 
+                    'name': skill.attributes.name, 
+                    'level': skill.attributes.level, 
+                    'happiness': skill.attributes.happiness, 
+                    'user_id': skill.attributes.user_id
+                    }
+                })
+               return {
+                   ...state,
+                   skills: allSkills
+               }
             default:
                 return state
         }
     }
+
 
 export default userReducer

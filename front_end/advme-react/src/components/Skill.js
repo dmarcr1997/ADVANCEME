@@ -7,6 +7,7 @@ const Skill = (props) => {
             <ul>
                 <li>Level: {props.skill.level}</li>
                 <li>Happiness: {props.skill.happiness}</li>
+                <button onClick={() => props.train(props.skill.id, props.user_id)}>Train</button>
             </ul>
         </div>
     )

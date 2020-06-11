@@ -16,9 +16,16 @@
        
     } 
 
-    export const increaseSkill = (user_id, skill_id) => {
+    export const increaseSkill = (skill_id, user_id) => {
+        let params = {'skills': {'skill_id': skill_id, 'user_id': user_id}}
         return (dispatch) => {
-            fetch(`https://advance-me.herokuapp.com/users/${user_id}/skills/${skill_id}/train`)
+            fetch(`https://advance-me.herokuapp.com/users/${user_id}/skills/${skill_id}/train`,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accepts': 'application/json'
+                },
+                body: JSON.stringify(params)})
              .then(resp => resp.json())
              .then(data => dispatch({type: 'INCREASE_SKILL', action: data}))
              .catch(error => console.log(error.message))

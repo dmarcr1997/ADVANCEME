@@ -23,7 +23,7 @@ class SkillsController < ApplicationController
     end
 
     def show
-        skill = Skill.find_by(id: params[:skill_id])
+        skill = Skill.find_by(id: skill_params[:skill_id])
         if skill  
             render json: SkillSerializer.new(skill)
         else
@@ -32,10 +32,14 @@ class SkillsController < ApplicationController
     end
 
     def edit
-        skill = Skill.find_by(id: params[:skill_id])
-        skill.update(skill_params)
+        puts skill_params
+        skill = Skill.find_by(id: skill_params[:skill_id])
+        user = User.find_by(id: skill_params[:user_id])
+        skill.level += 0.25
+        sortedSkills = user.skills.sort_by { |obj| obj.name }
+        puts sortedSkills 
         if skill.save 
-            render json: SkillSerializer.new(skill)
+            render json: SkillSerializer.new(sortedSkills)
         else
             render json: {error: 'Invalid Update'}
         end
@@ -44,7 +48,7 @@ class SkillsController < ApplicationController
     private
 
     def skill_params
-        params.require(:skills).permit(:name, :user_id)
+        params.require(:skills).permit(:name, :user_id, :skill_id)
     end
 
 end

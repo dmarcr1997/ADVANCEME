@@ -16,7 +16,7 @@ class Skills extends Component{
                 return(
                 <div>
                 <h3>Skills</h3>
-                {this.props.skills.map((skill => <Skill skill={skill}/>))}
+                {this.props.skills.map((skill => <Skill user_id={this.props.user_id} skill={skill} train={this.trainSkill}/>))}
                 <button onClick={() => this.toggle()}>New Skill</button>
                 {this.renderForm(['name'])}
                 </div>
@@ -41,6 +41,10 @@ class Skills extends Component{
         this.setState({
             currentUser: this.props.user_id
         })
+    }
+
+    trainSkill = (skill_id, user_id) => {
+        this.props.increaseSkill(skill_id, user_id)
     }
     handleSubmit = event => {
         event.preventDefault();
@@ -82,7 +86,7 @@ const mapStateToProps = state => {
   const mapDispatchToProps = dispatch => {
     return{
         newSkill: (skillData, id) => dispatch(newSkill(skillData, id)),
-        increaseSkill: skillData => dispatch(increaseSkill(skillData))
+        increaseSkill: (skill_id, user_id) => dispatch(increaseSkill(skill_id, user_id))
     }
   }
 

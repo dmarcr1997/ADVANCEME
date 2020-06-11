@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
     def new
-        puts params
         user = User.find_by(username: session_params[:username])
         if user
             render json: UserSerializer.new(user)

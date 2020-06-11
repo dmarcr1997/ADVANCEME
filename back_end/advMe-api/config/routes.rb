@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   post '/users/skills', to: 'skills#index'
   post '/users/:user_id/skills/show', to: 'skills#show'
   post '/users/:user_id/skills/new', to: 'skills#new'
-  get '/users/:user_id/skills/:skill_id/train', to: 'skills#edit'
+  post'/users/:user_id/skills/:skill_id/train', to: 'skills#edit'
   post '/users/:user_id/goals', to: 'goals#index'
   post '/users/:user_id/goals/new', to: 'goals#new'
   post '/users/:user_id/goals/:goal_id/end', to: 'goals#edit'
