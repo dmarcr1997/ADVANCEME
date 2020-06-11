@@ -41,8 +41,7 @@ class Skills extends Component{
         return(
             <div>
                 <h3>Skills</h3>
-                {this.props.skills.map(skill => <div>{skill.name}: {skill.level}</div>)}
-                {/* {this.props.skills.map((skill => <Skill skill={skill}/>))} */}
+                {this.props.skills.map((skill => <Skill skill={skill}/>))}
                 <button onClick={() => this.toggle()}>New Skill</button>
                 {this.renderForm()}
             </div>
