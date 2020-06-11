@@ -10,7 +10,7 @@ const Goal = (props) => {
             return(<div>Complete</div>)
         }
         else
-        return(<div>Incomplete</div>)
+        return(<div>Incomplete<br/><button onClick={() => endGoal()}>End</button></div>)
     }
     // debugger
     return(
@@ -19,7 +19,7 @@ const Goal = (props) => {
             <ul>
                 <li>Due: {props.goal.timeframe}</li>
                 <li>ended: {renderEnded()}</li>
-                <button onClick={() => endGoal()}>End</button>
+                
             </ul>
         </div>
     )
