@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
     def new
         user = User.find_by(username: session_params[:username])
+        user.skills.sort_by { |obj| obj.name }
+        user.goals.sort_by { |obj| obj.name }
         if user
             render json: UserSerializer.new(user)
         else

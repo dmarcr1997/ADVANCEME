@@ -4,30 +4,32 @@ import Goal from '../components/Goal';
 import Form from '../components/Form';
 import { connect }from 'react-redux';
 import {newSkill, increaseSkill} from '../actions/skillActions';
+import {newGoal, endGoal} from '../actions/goalActions';
 class Skills extends Component{
     state = {
         toggle: false,
-        currentUser: ''
+        currentUser: '',
+        type: ''
     };
     
     renderGoalsOrSkills = () =>{
-        switch(this.props.type){
+        switch(this.state.type){
             case 'skills':
                 return(
                 <div>
                 <h3>Skills</h3>
-                {this.props.skills.map((skill => <Skill user_id={this.props.user_id} skill={skill} train={this.trainSkill}/>))}
+                {this.props.skills.map((skill => <Skill user_id={this.props.user_id} skill={skill} increase={this.props.increaseSkill}/>))}
                 <button onClick={() => this.toggle()}>New Skill</button>
-                {this.renderForm(['name'])}
+                {this.renderForm(['name'], this.handleSkillSubmit)}
                 </div>
                 )
             case 'goals':
                 return(
                     <div>
                     <h3>Goals</h3>
-                    {this.props.goals.map((goal => <Goal goal={goal}/>))}
+                    {this.props.goals.map((goal => <Goal user_id={this.props.user_id} goal={goal} complete={this.props.endGoal}/>))}
                     <button onClick={() => this.toggle()}>New Goal</button>
-                    {this.renderForm(['name', 'datetime'])}
+                    {this.renderForm(['name', 'datetime'], this.handleGoalSubmit)}
                     </div>
                     )
             case 'default':
@@ -39,16 +41,20 @@ class Skills extends Component{
         const links = this.props.links
         this.props.renderLinks(links)
         this.setState({
-            currentUser: this.props.user_id
+            currentUser: this.props.user_id,
+            type: this.props.type
         })
     }
 
-    trainSkill = (skill_id, user_id) => {
-        this.props.increaseSkill(skill_id, user_id)
-    }
-    handleSubmit = event => {
+    handleSkillSubmit = event => {
         event.preventDefault();
         this.props.newSkill(event.target.name.value, event.target.hidden.value)
+        this.toggle()
+    }
+
+    handleGoalSubmit = event => {
+        event.preventDefault();
+        this.props.newGoal(event.target.name.value, event.target.datetime.value, event.target.hidden.value)
         this.toggle()
     }
     toggle = () =>{
@@ -58,10 +64,10 @@ class Skills extends Component{
         })
     }
     
-    renderForm = (inp) =>{
+    renderForm = (inp, func) =>{
         const formInputs = inp;
         if(this.state.toggle === true)
-        return(<Form callBack={this.handleSubmit} inputs={formInputs} hasHidden={true} hiddenVal={this.props.user_id}/>)
+        return(<Form callBack={func} inputs={formInputs} hasHidden={true} hiddenVal={this.props.user_id}/>)
         else
         return
     }
@@ -86,7 +92,9 @@ const mapStateToProps = state => {
   const mapDispatchToProps = dispatch => {
     return{
         newSkill: (skillData, id) => dispatch(newSkill(skillData, id)),
-        increaseSkill: (skill_id, user_id) => dispatch(increaseSkill(skill_id, user_id))
+        increaseSkill: (skill_id, user_id) => dispatch(increaseSkill(skill_id, user_id)),
+        newGoal: (goalName, goalDate, id) => dispatch(newGoal(goalName, goalDate, id)),
+        endGoal: (goal_id, user_id) => dispatch(endGoal(goal_id, user_id))
     }
   }
 

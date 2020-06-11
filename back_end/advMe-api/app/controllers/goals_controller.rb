@@ -1,18 +1,11 @@
 class GoalsController < ApplicationController
-    def index
-        user = User.find_by(id: params[:user_id])
-        goals = user.goals
-        if goals
-            render json: GoalSerializer.new(goals)
-        else
-            render json: {error: 'No goals yet'}
-        end
-    end
 
     def new
         user = User.find_by(id: params[:user_id])
         goal = Goal.new(goal_params)
         goal.user = user
+        goal.exp = 10
+        goal.ended = false
         if goal.save
             render json: GoalSerializer.new(user.goals)
         else
@@ -20,20 +13,13 @@ class GoalsController < ApplicationController
         end
     end
 
-    def show
-        goal = Goal.find_by(id: params[:goal_id])
-        if goal  
-            render json: GoalSerializer.new(goal)
-        else
-            render json: {error: 'Cannot find goal'}
-        end
-    end
-
     def edit
         goal = Goal.find_by(id: params[:goal_id])
-        goal.update(goal_params)
+        user = User.find_by(id: goal_params[:user_id])
+        goal.update(ended: true)
+        sortedGoals = user.goals.sort_by { |obj| obj.name }
         if goal.save 
-            render json: GoalSerializer.new(goal)
+            render json: GoalSerializer.new(sortedGoals)
         else
             render json: {error: 'Invalid Update'}
         end
