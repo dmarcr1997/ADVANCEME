@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
     def new
         user = User.create(user_params)
+        user.user_level = 0
         if user.save
             render json: UserSerializer.new(user)
         else

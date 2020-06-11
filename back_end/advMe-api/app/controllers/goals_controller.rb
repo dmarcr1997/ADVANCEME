@@ -17,6 +17,7 @@ class GoalsController < ApplicationController
         goal = Goal.find_by(id: params[:goal_id])
         user = User.find_by(id: goal_params[:user_id])
         goal.update(ended: true)
+        user.user_level += (goal.exp/100)
         sortedGoals = user.goals.sort_by { |obj| obj.name }
         if goal.save 
             render json: GoalSerializer.new(sortedGoals)
