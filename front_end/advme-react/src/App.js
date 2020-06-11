@@ -1,8 +1,7 @@
 import React,{ Component } from 'react';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import './App.css';
-import Skills from './components/Skills';
-import Goals from './components/Goals';
+import SkillsGoalsContainer from './containers/SkillsGoalsContainer';
 import UserFormContainer from './containers/UserFormContainer.js';
 import UserContainer from './containers/UserContainer';
 import NavBar from './components/NavBar';
@@ -80,8 +79,8 @@ class App extends Component{
           <Route path='/login' render={(props) => <UserFormContainer {...props} type={'login'} passBack={this.userInfo}  renderLinks={this.addLinks}/> } />
           <Route path='/signup' render={(props) => <UserFormContainer {...props} type={'signup'} passBack={this.userInfo}  renderLinks={this.addLinks}/> } />
           <Route path='/home' render={(props) => <UserContainer {...props} renderLinks={this.addLinks}/>} />
-          <Route path='/skills' render={(props) => <Skills {...props} renderLinks={this.addLinks}/>} />
-          <Route path='/goals' render={(props) => <Goals {...props} goals={this.state.goals} renderLinks={this.addLinks}/>} />
+          <Route path='/skills' render={(props) => <SkillsGoalsContainer {...props} links={['home', 'goals', 'logout']} type='skills' renderLinks={this.addLinks}/>} />
+          <Route path='/goals' render={(props) => <SkillsGoalsContainer {...props} links={['home', 'skills', 'logout']} type='goals' renderLinks={this.addLinks}/>} />
           <Route path='/logout' render={(props) => <Logout {...props} userLogout={this.handleLogout}/> } />
         </Router>
       </header>
