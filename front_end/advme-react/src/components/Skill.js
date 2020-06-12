@@ -1,5 +1,5 @@
 import React from 'react'
-
+import '../App.css'
 
 
 const Skill = (props) => {
@@ -17,11 +17,11 @@ const Skill = (props) => {
     }
 
     let barStyle ={
+        position: 'absolute',
         background: 'green',
         width: '100px',
-        paddingTop: '10px',
-        paddingBottom: '10px',
-        borderRadius: '30px'
+        borderRadius: '30px',
+        
     }
 
     let progStyle ={
@@ -32,13 +32,11 @@ const Skill = (props) => {
         borderRadius: '30px'
     }
     return(
-        <div>
-            {props.skill.name}
-            <ul>
-                <li>Level: {props.skill.level}</li>
-                <div style={barStyle}><div style={progStyle}></div></div>
-                <button onClick={() => trainSkill()}>Train</button>
-            </ul>
+        <div >
+             <div style={barStyle}><div style={progStyle}></div></div>
+            {props.skill.name}<br/>
+            Level: {props.skill.level}<br/>
+            <button onClick={() => trainSkill()}>Train</button>
         </div>
     )
 } 

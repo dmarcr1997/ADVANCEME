@@ -74,6 +74,8 @@ class App extends Component{
     <div className="App">
       <header className="App-header">
       <h1>ADVANCEME</h1>
+      <div className="ContentBox1">
+      <div className="ContentBox2">
         <Router>
           {/* {this.redirectToLocation()} */}
           {this.renderNavBar()}
@@ -85,6 +87,8 @@ class App extends Component{
           <Route path='/goals' render={(props) => <SkillsGoalsContainer {...props} links={['home', 'skills', 'logout']} type='goals' renderLinks={this.addLinks}/>} />
           <Route path='/logout' render={(props) => <Logout {...props} userLogout={this.handleLogout}/> } />
         </Router>
+        </div>
+        </div>
       </header>
     </div>
   );

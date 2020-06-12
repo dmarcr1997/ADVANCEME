@@ -12,6 +12,8 @@ const NavBar = (props) =>{
         background: 'blue',
         textDecoration: 'none',
         color: 'white',
+        border: 'solid blue',
+        borderRadius: '10px'
     };
 
     return(

@@ -15,7 +15,7 @@ const Form = (props) => {
             return(
                 <>
                     <label>Date</label>
-                    <input type='date' name='datetime' />
+                    <input type='date' name='datetime' /><br/>
                 </>
             )
         }

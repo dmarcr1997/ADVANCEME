@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Skill from '../components/Skill';
 import Goal from '../components/Goal';
 import Form from '../components/Form';
+import '../App.css'
 import { connect }from 'react-redux';
 import {newSkill, increaseSkill} from '../actions/skillActions';
 import {newGoal, endGoal} from '../actions/goalActions';
@@ -16,7 +17,7 @@ class Skills extends Component{
         switch(this.state.type){
             case 'skills':
                 return(
-                <div>
+                <div className='skillContainer'>
                 <h3>Skills</h3>
                 {this.props.skills.map((skill => <Skill user_id={this.props.user_id} skill={skill} increase={this.props.increaseSkill}/>))}
                 <button onClick={() => this.toggle()}>New Skill</button>
@@ -25,9 +26,9 @@ class Skills extends Component{
                 )
             case 'goals':
                 return(
-                    <div>
-                    <h3>Goals</h3>
+                    <div className='goalContainer'>
                     <table>
+                    <h3>Goals</h3>
                     <tr>
                         <th>Name</th>
                         <th>Date</th>
@@ -39,7 +40,7 @@ class Skills extends Component{
                     {this.renderForm(['name'], this.handleGoalSubmit, true)}
                     </div>
                     )
-            case 'default':
+            default:
                 return(<div>Go Back to Home page</div>)
         }
     }

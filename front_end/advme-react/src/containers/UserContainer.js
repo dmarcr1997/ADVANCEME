@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import '../App.css';
 class UserContainer extends Component{
     componentDidMount(){
         const links = ['skills', 'goals', 'logout']
@@ -9,7 +9,7 @@ class UserContainer extends Component{
     renderGoals = () => {
         return this.props.goals.map(goal =>{ 
             if(goal.ended === false){
-            return(<div>{goal.name}<br/>{goal.level}</div>)
+            return(<div>{goal.name}<br/>{goal.level}<br/></div>)
             }
         })
             
@@ -31,12 +31,12 @@ class UserContainer extends Component{
             if (sortedSkills[i])
             displaySkills.push(sortedSkills[i])
         }
-        return displaySkills.map(skill => <div>{skill.name}<br/>{skill.level}</div>)
+        return displaySkills.map(skill => <div>{skill.name}<br/>{skill.level}<br/></div>)
     }
     render(){
         console.log(this.props.user)
         return(
-            <>
+            <div className='userPage'>
                 <h3>Profile</h3>
                 
                 <p>
@@ -51,7 +51,7 @@ class UserContainer extends Component{
                 <p>
                     Recent Training:{this.renderSkills()}
                 </p>
-            </>
+            </div>
         )
     }
 }

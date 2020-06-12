@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #021C24;
 }
 
 .App-logo {
@@ -13,9 +14,68 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+input {
+  padding: 1%;
+  border: solid white;
+  border-radius: 10px;
+}
+.ContentBox1 {
+  width: 60%;
+  height: 70%; 
+  background: #068CB7;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 34px;
+  align-items: center;
+}
+div.ContentBox2 {
+  background-color:#C4C4C4;
+  width:60%;
+  padding: 10%;
+  margin:10%;
+}
+.userPage {
+  padding-right: 10%;
+  padding-left: 10%;
+  background-color: black;
+  text-align: justify;
+}
+.userPage p{
+  padding-right: 5%;
+  padding-left: 5%;
+  background-color: #C4C4C4;
+  border: 1px solid black;
+  border-radius: 10px;
 
+}
+.skillContainer{
+  align-content: center;
+  /* position: flex; */
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.goalContainer{
+  align-content: center;
+  position: flex;
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 10%;
+}
+.goalContainer table tr, td{
+  
+  border: 1px solid white; 
+  
+}
+
+button {
+  background-color: red;
+  color: black;
+  border: 1px solid red;
+  border-radius: 40%;
+}
 .App-header {
-  background-color: #282c34;
+  background-color: #021C24;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -24,16 +84,11 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.App-header h1 {
+  
+  font-family: 'Courier New', Courier, monospace
 
+}
 .App-link {
   color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
