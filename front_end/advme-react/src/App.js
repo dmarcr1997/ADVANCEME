@@ -17,7 +17,7 @@ class App extends Component{
     loggedIn: false,
     links: []
   }
-  userInfo = (loggedUser, level, skills, goals) =>{
+  userInfo = (loggedIn, loggedUser, level, skills, goals) =>{
     this.setState({
       ...this.state,
       user: {
@@ -26,7 +26,7 @@ class App extends Component{
         skills,
         goals
       },
-      loggedIn: true
+      loggedIn: loggedIn
     })
    
   }
@@ -58,17 +58,29 @@ class App extends Component{
   }
 
   handleLogout = () => {
-    this.setState({
-      user: {
-        username:"",
-        skills: [],
-        goals: []
-      },
-      loggedIn: false,
-      links: []
+    fetch('https://advance-me.herokuapp.com/logout')
+    .then(resp => resp.json)
+    .then(data => {
+      alert (data.message)
+      this.setState({
+        user: {
+          username:"",
+          skills: [],
+          goals: []
+        },
+        loggedIn: false,
+        links: []
+      })
     })
+   
   }
   
+  componentDidMount(){
+    fetch('https://advance-me.herokuapp.com/')
+    .then(resp => resp.json())
+    .then(data => console.log(data))
+  }
+
   render(){
   return (
     <div className="App">
@@ -77,10 +89,9 @@ class App extends Component{
       <div className="ContentBox1">
       <div className="ContentBox2">
         <Router>
-          {/* {this.redirectToLocation()} */}
           {this.renderNavBar()}
           {this.redirectToProfile()}
-          <Route path='/login' render={(props) => <UserFormContainer {...props} type={'login'} passBack={this.userInfo}  renderLinks={this.addLinks}/> } />
+          <Route path='/login' exact render={(props) => <UserFormContainer {...props} type={'login'} passBack={this.userInfo}  renderLinks={this.addLinks}/> } />
           <Route path='/signup' render={(props) => <UserFormContainer {...props} type={'signup'} passBack={this.userInfo}  renderLinks={this.addLinks}/> } />
           <Route path='/home' render={(props) => <UserContainer {...props} renderLinks={this.addLinks}/>} />
           <Route path='/skills' render={(props) => <SkillsGoalsContainer {...props} links={['home', 'goals', 'logout']} type='skills' renderLinks={this.addLinks}/>} />

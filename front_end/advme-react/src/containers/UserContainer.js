@@ -9,7 +9,7 @@ class UserContainer extends Component{
     renderGoals = () => {
         return this.props.goals.map(goal =>{ 
             if(goal.ended === false){
-            return(<div>{goal.name}<br/>{goal.level}<br/></div>)
+            return(<><div><label>Name: </label>{goal.name}<br/><label>Due: </label>{goal.timeframe}</div><br/></>)
             }
         })
             
@@ -31,7 +31,7 @@ class UserContainer extends Component{
             if (sortedSkills[i])
             displaySkills.push(sortedSkills[i])
         }
-        return displaySkills.map(skill => <div>{skill.name}<br/>{skill.level}<br/></div>)
+        return displaySkills.map(skill => <><div><label>Name: </label>{skill.name}<br/><label>Level: </label>{skill.level}</div><br/></>)
     }
     render(){
         console.log(this.props.user)

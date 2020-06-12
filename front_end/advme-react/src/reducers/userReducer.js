@@ -3,20 +3,34 @@ const userReducer = (state={
     username: '',
     userLevel: 0,
     goals: [],
-    skills: []
+    skills: [],
+    loggedIn: false,
+    error: ''
     }, action) => {
         switch(action.type){
+            case 'INVALID_USER':
+                debugger
+                return{
+                    ...state,
+                    error: action.error
+                }
             case 'NEW_USER':
                 return{
                     id: action.user.id,
                     username: action.user.attributes.username,
                     userLevel: action.user.attributes.user_level,
                     goals: action.user.attributes.goals,
-                    skills: action.user.attributes.skills
+                    skills: action.user.attributes.skills,
+                    loggedIn: true
                 }
             case 'GET_USER':
                 return{
-                    username: action.user.attributes.username,  userLevel: action.user.attributes.user_level, id: action.user.id, skills: action.user.attributes.skills, goals: action.user.attributes.goals
+                    username: action.user.attributes.username,  
+                    userLevel: action.user.attributes.user_level, 
+                    id: action.user.id, 
+                    skills: action.user.attributes.skills, 
+                    goals: action.user.attributes.goals,
+                    loggedIn: true
                 }
             case 'NEW_SKILL':
                 return{
@@ -50,6 +64,8 @@ const userReducer = (state={
     let allGoals = (goals) => {
         return(
             goals.map(goal => {
+                let date = goal.attributes.timeframe.split('T')[0]
+                debugger
                 return{
                     'id': goal.id, 
                     'name': goal.attributes.name, 

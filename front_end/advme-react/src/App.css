@@ -32,19 +32,23 @@ div.ContentBox2 {
   width:60%;
   padding: 10%;
   margin:10%;
+  box-shadow: 3px 12px 30px black;
 }
 .userPage {
   padding-right: 10%;
   padding-left: 10%;
   background-color: black;
   text-align: justify;
+  border: 1px solid black;
+  border-radius: 10px;
 }
 .userPage p{
   padding-right: 5%;
   padding-left: 5%;
-  background-color: #C4C4C4;
-  border: 1px solid black;
+  background-color: black;
+  border: 1px dotted white;
   border-radius: 10px;
+
 
 }
 .skillContainer{

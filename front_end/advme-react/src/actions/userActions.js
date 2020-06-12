@@ -12,7 +12,12 @@ export const newUser = (inputs) => {
                 body: JSON.stringify(userData)
             })
             .then(resp => resp.json())
-            .then(data => dispatch({type: 'NEW_USER', user: data.data}))
+            .then(data => { 
+                if(data.error)
+                    return dispatch({type: 'INVALID', error: data.error})
+                else
+                    dispatch({type: 'NEW_USER', user: data.data})
+            })
             .catch(error => console.log(error.message))
         };
        
@@ -25,12 +30,18 @@ export const getUser = (inputs) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accepts': 'application/json'
+                    'Accepts': 'application/json',
+                    'X-CSRF-TOKEN': unescape(document.cookie.split('=')[1])
                 },
                 body: JSON.stringify(userData)
             })
              .then(resp => resp.json())
-             .then(data => dispatch({type: 'GET_USER', user: data.data}))
+             .then(data => {
+                if(data.error)
+                    return dispatch({type: 'INVALID', error: data.error})
+                else
+                    return dispatch({type: 'GET_USER', user: data.data})
+                })
              .catch(error => console.log(error.message))
          }
     }

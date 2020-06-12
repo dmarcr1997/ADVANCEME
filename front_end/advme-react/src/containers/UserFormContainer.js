@@ -15,7 +15,7 @@ class FormContainer extends Component{
         event.preventDefault();
         let user={
             username: event.target.username.value,
-            password_digest: event.target.password.value,        
+            password: event.target.password.value,        
         }
         
         switch(this.props.type){
@@ -30,7 +30,7 @@ class FormContainer extends Component{
         }
         setTimeout(() => {
             console.log(this.props.user_id)
-            this.props.passBack(this.props.user, this.props.userLevel, this.props.skills, this.props.goals)
+            this.props.passBack(this.props.loggedIn, this.props.user, this.props.userLevel, this.props.skills, this.props.goals)
         }, 2000)
       }
 
@@ -52,7 +52,8 @@ const mapStateToProps = state => {
       userLevel: state.userLevel,
       skills: state.skills,
       goals: state.goals,
-      user_id: state.id
+      user_id: state.id,
+      loggedIn: state.loggedIn
     })
   }
   const mapDispatchToProps = dispatch => {
