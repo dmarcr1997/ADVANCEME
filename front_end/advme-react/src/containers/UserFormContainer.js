@@ -9,7 +9,6 @@ class FormContainer extends Component{
     componentDidMount(){
         const links = ['login', 'signup']
         this.props.renderLinks(links)
-
     }
     handleSubmit = event => {
         event.preventDefault();
@@ -29,8 +28,13 @@ class FormContainer extends Component{
                 console.log(this.state)
         }
         setTimeout(() => {
-            console.log(this.props.user_id)
-            this.props.passBack(this.props.loggedIn, this.props.user, this.props.userLevel, this.props.skills, this.props.goals)
+            if (this.props.loggedIn){
+                console.log(this.props.user_id)
+                this.props.passBack(this.props.loggedIn, this.props.user, this.props.userLevel, this.props.skills, this.props.goals)
+            }
+            else{
+                alert(this.props.error)
+            }
         }, 2000)
       }
 
@@ -53,7 +57,8 @@ const mapStateToProps = state => {
       skills: state.skills,
       goals: state.goals,
       user_id: state.id,
-      loggedIn: state.loggedIn
+      loggedIn: state.loggedIn, 
+      error: state.error
     })
   }
   const mapDispatchToProps = dispatch => {

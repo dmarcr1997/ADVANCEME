@@ -14,7 +14,7 @@ export const newUser = (inputs) => {
             .then(resp => resp.json())
             .then(data => { 
                 if(data.error)
-                    return dispatch({type: 'INVALID', error: data.error})
+                    return dispatch({type: 'INVALID_USER', error: data.error})
                 else
                     dispatch({type: 'NEW_USER', user: data.data})
             })
@@ -37,8 +37,9 @@ export const getUser = (inputs) => {
             })
              .then(resp => resp.json())
              .then(data => {
+                 debugger
                 if(data.error)
-                    return dispatch({type: 'INVALID', error: data.error})
+                    return dispatch({type: 'INVALID_USER', error: data.error})
                 else
                     return dispatch({type: 'GET_USER', user: data.data})
                 })

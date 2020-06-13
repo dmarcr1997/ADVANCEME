@@ -69,7 +69,7 @@ const userReducer = (state={
                 return{
                     'id': goal.id, 
                     'name': goal.attributes.name, 
-                    'timeframe': goal.attributes.timeframe, 
+                    'timeframe': date, 
                     'exp': goal.attributes.exp, 
                     'user_id': goal.attributes.user_id,
                     'ended': goal.attributes.ended

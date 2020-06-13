@@ -9,6 +9,5 @@ class ApplicationController < ActionController::API
     private
         def set_auth_token_cookie 
             cookies['CSRF-TOKEN'] = form_authenticity_token
-
         end
 end

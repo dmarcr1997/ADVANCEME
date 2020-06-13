@@ -77,8 +77,6 @@ class App extends Component{
   
   componentDidMount(){
     fetch('https://advance-me.herokuapp.com/')
-    .then(resp => resp.json())
-    .then(data => console.log(data))
   }
 
   render(){

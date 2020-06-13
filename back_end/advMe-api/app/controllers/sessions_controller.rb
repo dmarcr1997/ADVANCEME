@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
     def new
         user = User.find_by(username: session_params[:username])
-        puts session_params[:password]
         if user
             if user.authenticate(session_params[:password])
                 session[:user_id] = user.id
@@ -17,7 +16,8 @@ class SessionsController < ApplicationController
 
     def welcome
         if (session[:user_id])
-            render json: {user: session[:user_id]}
+            user = User.find_by(id: session[:user_id])
+            render json: UserSerializer.new(user)
         else
             render json: {message: 'Not logged in'}
         end
