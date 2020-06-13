@@ -37,7 +37,6 @@ export const getUser = (inputs) => {
             })
              .then(resp => resp.json())
              .then(data => {
-                 debugger
                 if(data.error)
                     return dispatch({type: 'INVALID_USER', error: data.error})
                 else

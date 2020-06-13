@@ -61,7 +61,6 @@ class App extends Component{
     fetch('https://advance-me.herokuapp.com/logout')
     .then(resp => resp.json)
     .then(data => {
-      alert (data.message)
       this.setState({
         user: {
           username:"",

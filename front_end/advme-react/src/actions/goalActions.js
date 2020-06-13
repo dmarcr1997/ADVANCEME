@@ -16,7 +16,6 @@ export const newGoal = (name, date, user_id) => {
     }
 
 export const endGoal = (goal_id, user_id) => {
-    debugger
     let params = {'goals': {'goal_id': goal_id, 'user_id': user_id}}
         return (dispatch) => {
             fetch(`https://advance-me.herokuapp.com/users/${user_id}/goals/${goal_id}/end`,{

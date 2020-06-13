@@ -9,7 +9,6 @@ const userReducer = (state={
     }, action) => {
         switch(action.type){
             case 'INVALID_USER':
-                debugger
                 return{
                     ...state,
                     error: action.error
@@ -19,17 +18,18 @@ const userReducer = (state={
                     id: action.user.id,
                     username: action.user.attributes.username,
                     userLevel: action.user.attributes.user_level,
-                    goals: action.user.attributes.goals,
+                    goals: allGoals(action.user.attributes.goals, false),
                     skills: action.user.attributes.skills,
                     loggedIn: true
                 }
             case 'GET_USER':
+                debugger
                 return{
                     username: action.user.attributes.username,  
                     userLevel: action.user.attributes.user_level, 
                     id: action.user.id, 
                     skills: action.user.attributes.skills, 
-                    goals: action.user.attributes.goals,
+                    goals: allGoals(action.user.attributes.goals, false),
                     loggedIn: true
                 }
             case 'NEW_SKILL':
@@ -47,13 +47,13 @@ const userReducer = (state={
                 
                 return{
                     ...state, 
-                    goals: allGoals(action.action.data)
+                    goals: allGoals(action.action.data, true)
                 }
             case 'END_GOAL':
                 return{
                     ...state, 
                     userLevel: updateUserLevel(state.userLevel,'goal'),
-                    goals: allGoals(action.action.data)
+                    goals: allGoals(action.action.data, true)
                 }
             default:
                 return state
@@ -61,24 +61,31 @@ const userReducer = (state={
     }
 
 
-    let allGoals = (goals) => {
+    let allGoals = (goals, attr) => {
+        let goalAttributes;
+       
         return(
             goals.map(goal => {
-                let date = goal.attributes.timeframe.split('T')[0]
-                debugger
+                if (attr === true){
+                    goalAttributes = goal.attributes
+                }
+                else{
+                    goalAttributes = goal
+                }
+                let date = goalAttributes.timeframe.split('T')[0]
                 return{
                     'id': goal.id, 
-                    'name': goal.attributes.name, 
+                    'name': goalAttributes.name, 
                     'timeframe': date, 
-                    'exp': goal.attributes.exp, 
-                    'user_id': goal.attributes.user_id,
-                    'ended': goal.attributes.ended
+                    'exp': goalAttributes.exp, 
+                    'user_id': goalAttributes.user_id,
+                    'ended': goalAttributes.ended
                     }
                 }
             )
         )
     }
-
+   
     
     let allSkills = (skills) => {
         return(
