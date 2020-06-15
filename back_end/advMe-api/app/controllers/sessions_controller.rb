@@ -15,12 +15,7 @@ class SessionsController < ApplicationController
     end
 
     def welcome
-        if (session[:user_id])
-            user = User.find_by(id: session[:user_id])
-            render json: UserSerializer.new(user)
-        else
-            render json: {message: 'Not logged in'}
-        end
+       render json: {sessh: session[:user_id]}
     end
 
     def destroy

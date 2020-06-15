@@ -1,7 +1,7 @@
 export const newGoal = (name, date, user_id) => {
        let params = {'goals': {'name': name, 'timeframe': date, 'user_id': user_id}};
        return (dispatch) => {
-           fetch(`https://advance-me.herokuapp.com/users/${user_id}/goals/new`, {
+           fetch(`http://localhost:3000/users/${user_id}/goals/new`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export const newGoal = (name, date, user_id) => {
 export const endGoal = (goal_id, user_id) => {
     let params = {'goals': {'goal_id': goal_id, 'user_id': user_id}}
         return (dispatch) => {
-            fetch(`https://advance-me.herokuapp.com/users/${user_id}/goals/${goal_id}/end`,{
+            fetch(`http://localhost:3000/users/${user_id}/goals/${goal_id}/end`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

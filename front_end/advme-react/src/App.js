@@ -6,6 +6,8 @@ import UserFormContainer from './containers/UserFormContainer.js';
 import UserContainer from './containers/UserContainer';
 import NavBar from './components/NavBar';
 import Logout from './components/Logout';
+import Animation from './components/Animation';
+
 class App extends Component{
   state={
     user: {
@@ -15,7 +17,7 @@ class App extends Component{
       goals: []
     },
     loggedIn: false,
-    links: []
+    links: [],
   }
   userInfo = (loggedIn, loggedUser, level, skills, goals) =>{
     this.setState({
@@ -58,10 +60,11 @@ class App extends Component{
   }
 
   handleLogout = () => {
-    fetch('https://advance-me.herokuapp.com/logout')
+    fetch('http://localhost:3000/logout')
     .then(resp => resp.json)
     .then(data => {
       this.setState({
+        ...this.state,
         user: {
           username:"",
           skills: [],
@@ -73,9 +76,46 @@ class App extends Component{
     })
    
   }
-  
+ 
   componentDidMount(){
-    fetch('https://advance-me.herokuapp.com/')
+    fetch('http://localhost:3000/')
+    window.addEventListener('keypress', this.handleKey)
+  }
+
+  handleKey = (event) => {
+    console.log(event.key)
+    if(event.key === "w"){
+      this.setState({
+        ...this.state,
+        type: 4
+      })
+    }
+    else if(event.key === "s"){
+      this.setState({
+        ...this.state,
+        type: 1
+      })
+    }
+    else if(event.key === "a"){
+      this.setState({
+        ...this.state,
+        type: 3
+      })
+    }
+    else if(event.key === "d"){
+      this.setState({
+        ...this.state,
+        type: 2
+      })
+      debugger
+    }
+    this.render()
+  }
+
+  renderAnimation = (type) => {
+    return(
+    <Animation type={type}/>
+    )
   }
 
   render(){
@@ -83,6 +123,7 @@ class App extends Component{
     <div className="App">
       <header className="App-header">
       <h1>ADVANCEME</h1>
+      <div>{this.renderAnimation(this.state.type)}</div>
       <div className="ContentBox1">
       <div className="ContentBox2">
         <Router>

@@ -3,7 +3,7 @@
 export const newUser = (inputs) => {
         let userData = {'users': inputs}
        return (dispatch) => {
-           fetch('https://advance-me.herokuapp.com/signup', {
+           fetch('http://localhost:3000/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -13,6 +13,7 @@ export const newUser = (inputs) => {
             })
             .then(resp => resp.json())
             .then(data => { 
+                debugger
                 if(data.error)
                     return dispatch({type: 'INVALID_USER', error: data.error})
                 else
@@ -26,7 +27,7 @@ export const newUser = (inputs) => {
 export const getUser = (inputs) => {
     let userData = {'users': inputs}
         return (dispatch) => {
-            fetch('https://advance-me.herokuapp.com/login',{
+            fetch('http://localhost:3000/login',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,6 +38,7 @@ export const getUser = (inputs) => {
             })
              .then(resp => resp.json())
              .then(data => {
+                debugger
                 if(data.error)
                     return dispatch({type: 'INVALID_USER', error: data.error})
                 else

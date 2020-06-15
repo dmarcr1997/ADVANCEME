@@ -5,6 +5,7 @@ class UserContainer extends Component{
     componentDidMount(){
         const links = ['skills', 'goals', 'logout']
         this.props.renderLinks(links)
+        
     }
     renderGoals = () => {
         return this.props.goals.map(goal =>{ 

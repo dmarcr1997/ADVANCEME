@@ -20,8 +20,8 @@ class SkillsController < ApplicationController
         skill.level += 0.25
         skill.last_train = DateTime.now()
         skill.save
-        sortedSkills = user.skills.sort_by { |obj| obj.name }
-        render json: SkillSerializer.new(sortedSkills)
+        allSkills = user.skills
+        render json: SkillSerializer.new(allSkills)
     end
 
     private
