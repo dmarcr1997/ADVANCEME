@@ -7,6 +7,9 @@ import UserContainer from './containers/UserContainer';
 import NavBar from './components/NavBar';
 import Logout from './components/Logout';
 import Animation from './components/Animation';
+import Animation2 from './components/Animation2';
+import Animation3 from './components/Animation3';
+import Animation4 from './components/Animation4';
 
 class App extends Component{
   state={
@@ -64,6 +67,7 @@ class App extends Component{
     fetch('http://localhost:3000/logout')
     .then(resp => resp.json)
     .then(data => {
+      console.log(data)
       this.setState({
         ...this.state,
         user: {
@@ -84,11 +88,10 @@ class App extends Component{
   }
 
   handleKey = (event) => {
-    console.log(event.key)
     if(event.key === "w"){
       this.setState({
         ...this.state,
-        type: 4
+        type: 2
       })
     }
     else if(event.key === "s"){
@@ -106,16 +109,18 @@ class App extends Component{
     else if(event.key === "d"){
       this.setState({
         ...this.state,
-        type: 2
+        type: 4
       })
-      debugger
     }
+    console.log(this.state)
   }
 
   renderAnimation = () => {
-    return(
-    <Animation type={this.state.type}/>
-    )
+    if (this.state.type === 1) return <Animation />
+    else if (this.state.type === 2) return <Animation2 />
+    else if (this.state.type === 3) return <Animation3 />
+    else if (this.state.type === 4) return <Animation4 />
+    return
   }
 
   render(){
@@ -123,7 +128,7 @@ class App extends Component{
     <div className="App">
       <header className="App-header">
       <h1>ADVANCEME</h1>
-      <div>{this.renderAnimation()}</div>
+      <div>{this.renderAnimation()}<br/></div>
       <div className="ContentBox1">
       <div className="ContentBox2">
         <Router>

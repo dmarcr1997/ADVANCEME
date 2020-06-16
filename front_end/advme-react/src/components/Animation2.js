@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 
-const Animation = () =>{
+const Animation2 = (props) =>{
     const [img, setImage] = useState(0);
     let count = 0;
     
     let widthSize = '20%';
     let heightSize = '15%';
 
-    const char1FrontWalk = require('../AnimationForReact/Char3/Char3front/char3WalkFront.jpg');
-    const char1FrontWalk2 = require('../AnimationForReact/Char3/Char3front/char3WalkFront2.jpg');
-
+    const char1Back = require('../AnimationForReact/Char3/Char3Back/char3Back.jpg');
+    const char1BackWalk = require('../AnimationForReact/Char3/Char3Back/char3BackWalk2.jpg');
+    const char1BackWalk2 = require('../AnimationForReact/Char3/Char3Back/char3BackWalk3.jpg');
+    
+    
     const charStyle = {
         width: widthSize,
         height: heightSize
     }
-    let pictures = [char1FrontWalk, char1FrontWalk2, char1FrontWalk];
+    let pictures = [char1Back, char1BackWalk, char1BackWalk2];
+    
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -35,4 +38,4 @@ const Animation = () =>{
     )
 }
 
-export default Animation
+export default Animation2
