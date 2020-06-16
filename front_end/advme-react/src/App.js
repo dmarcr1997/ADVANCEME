@@ -18,6 +18,7 @@ class App extends Component{
     },
     loggedIn: false,
     links: [],
+    type: 1
   }
   userInfo = (loggedIn, loggedUser, level, skills, goals) =>{
     this.setState({
@@ -109,12 +110,11 @@ class App extends Component{
       })
       debugger
     }
-    this.render()
   }
 
-  renderAnimation = (type) => {
+  renderAnimation = () => {
     return(
-    <Animation type={type}/>
+    <Animation type={this.state.type}/>
     )
   }
 
@@ -123,7 +123,7 @@ class App extends Component{
     <div className="App">
       <header className="App-header">
       <h1>ADVANCEME</h1>
-      <div>{this.renderAnimation(this.state.type)}</div>
+      <div>{this.renderAnimation()}</div>
       <div className="ContentBox1">
       <div className="ContentBox2">
         <Router>
