@@ -14,12 +14,22 @@ class SessionsController < ApplicationController
 
     end
 
+    def show
+        user = User.find_by(id: params[:id])
+        render json: UserSerializer.new(user)
+    end
+
     def welcome
-       render json: {sessh: session[:user_id]}
+       if session[:user_id]
+            render json: {sessh: session[:user_id]}
+       else
+            render json: {no_sessh: 'Not here'}
+       end
     end
 
     def destroy
         session.delete(:user_id)
+        puts "#{session[:user_id]} session"
         render json: {message: 'You have been successfully logged out!'}
     end
 

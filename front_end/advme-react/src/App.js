@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import './App.css';
+import { connect } from 'react-redux';
 import SkillsGoalsContainer from './containers/SkillsGoalsContainer';
 import UserFormContainer from './containers/UserFormContainer.js';
 import UserContainer from './containers/UserContainer';
@@ -10,34 +11,16 @@ import Animation from './components/Animation';
 import Animation2 from './components/Animation2';
 import Animation3 from './components/Animation3';
 import Animation4 from './components/Animation4';
+import {logout, checkLogin} from './actions/userActions';
 
 class App extends Component{
   state={
-    user: {
-      username:"",
-      userLevel: 0,
-      skills: [],
-      goals: []
-    },
-    loggedIn: false,
     links: [],
     type: 1
   }
-  userInfo = (loggedIn, loggedUser, level, skills, goals) =>{
-    this.setState({
-      ...this.state,
-      user: {
-        username: loggedUser,
-        userLevel: level,
-        skills,
-        goals
-      },
-      loggedIn: loggedIn
-    })
-   
-  }
+
   redirectToProfile = () => {
-    if (this.state.loggedIn === true)
+    if (this.props.loggedIn === true)
       return(
         <Redirect to='/home' />
       )
@@ -62,30 +45,15 @@ class App extends Component{
     })
     return console.log('New Links')
   }
-
-  handleLogout = () => {
-    fetch('http://localhost:3000/logout')
-    .then(resp => resp.json)
-    .then(data => {
-      console.log(data)
-      this.setState({
-        ...this.state,
-        user: {
-          username:"",
-          skills: [],
-          goals: []
-        },
-        loggedIn: false,
-        links: []
-      })
-    })
-   
-  }
  
   componentDidMount(){
-    fetch('http://localhost:3000/')
+    this.props.checkLogin()
+    // while (this.props.user === ''){
+
+    // }
     window.addEventListener('keypress', this.handleKey)
   }
+
 
   handleKey = (event) => {
     if(event.key === "w"){
@@ -128,18 +96,18 @@ class App extends Component{
     <div className="App">
       <header className="App-header">
       <h1>ADVANCEME</h1>
-      <div>{this.renderAnimation()}<br/></div>
+      {/* <div>{this.renderAnimation()}<br/></div> */}
       <div className="ContentBox1">
       <div className="ContentBox2">
         <Router>
           {this.renderNavBar()}
           {this.redirectToProfile()}
-          <Route path='/login' exact render={(props) => <UserFormContainer {...props} type={'login'} passBack={this.userInfo}  renderLinks={this.addLinks}/> } />
-          <Route path='/signup' render={(props) => <UserFormContainer {...props} type={'signup'} passBack={this.userInfo}  renderLinks={this.addLinks}/> } />
+          <Route path='/login' exact render={(props) => <UserFormContainer {...props} type={'login'} renderLinks={this.addLinks}/> } />
+          <Route path='/signup' exact render={(props) => <UserFormContainer {...props} type={'signup'} renderLinks={this.addLinks}/> } />
           <Route path='/home' render={(props) => <UserContainer {...props} renderLinks={this.addLinks}/>} />
           <Route path='/skills' render={(props) => <SkillsGoalsContainer {...props} links={['home', 'goals', 'logout']} type='skills' renderLinks={this.addLinks}/>} />
           <Route path='/goals' render={(props) => <SkillsGoalsContainer {...props} links={['home', 'skills', 'logout']} type='goals' renderLinks={this.addLinks}/>} />
-          <Route path='/logout' render={(props) => <Logout {...props} userLogout={this.handleLogout}/> } />
+          <Route path='/logout' render={(props) => <Logout {...props} userLogout={this.props.logout}/> } />
         </Router>
         </div>
         </div>
@@ -149,5 +117,23 @@ class App extends Component{
   }
 }
 
+const mapStateToProps = state => {
+  return({
+    user: state.username,
+    userLevel: state.userLevel,
+    skills: state.skills,
+    goals: state.goals,
+    user_id: state.id,
+    loggedIn: state.loggedIn, 
+    error: state.error
+  })
+}
+const mapDispatchToProps = dispatch => {
+  return{
+      logout: () => dispatch(logout()),
+      checkLogin: () => dispatch(checkLogin())
+  }
+}
 
-export default App;
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

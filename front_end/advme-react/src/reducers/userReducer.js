@@ -54,6 +54,16 @@ const userReducer = (state={
                     userLevel: updateUserLevel(state.userLevel,'goal'),
                     goals: allGoals(action.action.data, true)
                 }
+            case 'LOGOUT':
+                return{
+                    id: '',
+                    username: '',
+                    userLevel: 0,
+                    goals: [],
+                    skills: [],
+                    loggedIn: false,
+                    error: ''
+                }
             default:
                 return state
         }

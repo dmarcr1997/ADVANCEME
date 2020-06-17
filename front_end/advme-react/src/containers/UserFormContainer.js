@@ -27,15 +27,6 @@ class FormContainer extends Component{
             default:
                 console.log(this.state)
         }
-        setTimeout(() => {
-            if (this.props.loggedIn){
-                console.log(this.props.user_id)
-                this.props.passBack(this.props.loggedIn, this.props.user, this.props.userLevel, this.props.skills, this.props.goals)
-            }
-            else{
-                alert(this.props.error)
-            }
-        }, 2000)
       }
 
     

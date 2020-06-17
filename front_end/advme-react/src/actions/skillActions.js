@@ -3,6 +3,7 @@
        return (dispatch) => {
            fetch(`http://localhost:3000/users/${id}/skills/new`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accepts': 'application/json'
@@ -21,6 +22,7 @@
         return (dispatch) => {
             fetch(`http://localhost:3000/users/${user_id}/skills/${skill_id}/train`,{
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accepts': 'application/json'

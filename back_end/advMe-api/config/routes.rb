@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'sessions#welcome'
   get '/logout', to: 'sessions#destroy'
+  get '/user/:id', to: 'sessions#show'
   post '/login', to: 'sessions#new'
   post '/signup', to: 'users#new'
   post '/profile', to: 'users#show'
