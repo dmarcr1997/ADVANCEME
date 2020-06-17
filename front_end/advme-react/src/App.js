@@ -7,11 +7,12 @@ import UserFormContainer from './containers/UserFormContainer.js';
 import UserContainer from './containers/UserContainer';
 import NavBar from './components/NavBar';
 import Logout from './components/Logout';
+import SpinnerPage from './components/SpinnerPage';
 import Animation from './components/Animation';
 import Animation2 from './components/Animation2';
 import Animation3 from './components/Animation3';
 import Animation4 from './components/Animation4';
-import {logout, checkLogin} from './actions/userActions';
+import {logout, checkLogin, setLoading} from './actions/userActions';
 
 class App extends Component{
   state={
@@ -20,11 +21,16 @@ class App extends Component{
   }
 
   redirectToProfile = () => {
+    while(this.props.loading === true){
+      return(
+        <Redirect to='/loading' />
+      )
+    }
     if (this.props.loggedIn === true)
       return(
         <Redirect to='/home' />
       )
-    else
+    else if(this.props.loading === false && this.props.loggedIn === false)
         return(
           <Redirect to='/login' />
       )
@@ -47,10 +53,11 @@ class App extends Component{
   }
  
   componentDidMount(){
+    this.props.setLoading()
     this.props.checkLogin()
-    // while (this.props.user === ''){
-
-    // }
+    setTimeout(() => {
+      console.log('done loading')
+    }, 4000)
     window.addEventListener('keypress', this.handleKey)
   }
 
@@ -108,6 +115,7 @@ class App extends Component{
           <Route path='/skills' render={(props) => <SkillsGoalsContainer {...props} links={['home', 'goals', 'logout']} type='skills' renderLinks={this.addLinks}/>} />
           <Route path='/goals' render={(props) => <SkillsGoalsContainer {...props} links={['home', 'skills', 'logout']} type='goals' renderLinks={this.addLinks}/>} />
           <Route path='/logout' render={(props) => <Logout {...props} userLogout={this.props.logout}/> } />
+          <Route path='/loading'render={(props) => <SpinnerPage {...props} renderLinks={this.addLinks}/>} />
         </Router>
         </div>
         </div>
@@ -125,13 +133,15 @@ const mapStateToProps = state => {
     goals: state.goals,
     user_id: state.id,
     loggedIn: state.loggedIn, 
-    error: state.error
+    error: state.error,
+    loading: state.loading
   })
 }
 const mapDispatchToProps = dispatch => {
   return{
       logout: () => dispatch(logout()),
-      checkLogin: () => dispatch(checkLogin())
+      checkLogin: () => dispatch(checkLogin()),
+      setLoading: () => dispatch(setLoading())
   }
 }
 

@@ -5,13 +5,21 @@ const userReducer = (state={
     goals: [],
     skills: [],
     loggedIn: false,
-    error: ''
+    error: '',
+    loading: false
     }, action) => {
         switch(action.type){
+            case 'USER_LOG':
+                let curLoading = state.loading
+                return{
+                    ...state,
+                    loading: !curLoading
+                }
             case 'INVALID_USER':
                 return{
                     ...state,
-                    error: action.error
+                    error: action.error,
+                    loading: false
                 }
             case 'NEW_USER':
                 return{
@@ -20,7 +28,8 @@ const userReducer = (state={
                     userLevel: allSkills(action.user.attributes.user_level,false),
                     goals: allGoals(action.user.attributes.goals, false),
                     skills: action.user.attributes.skills,
-                    loggedIn: true
+                    loggedIn: true,
+                    loading: false
                 }
             case 'GET_USER':
                 return{
@@ -29,7 +38,8 @@ const userReducer = (state={
                     id: action.user.id, 
                     skills: allSkills(action.user.attributes.skills,false), 
                     goals: allGoals(action.user.attributes.goals, false),
-                    loggedIn: true
+                    loggedIn: true,
+                    loading: false
                 }
             case 'NEW_SKILL':
                 return{
@@ -62,7 +72,8 @@ const userReducer = (state={
                     goals: [],
                     skills: [],
                     loggedIn: false,
-                    error: ''
+                    error: '',
+                    loading: false
                 }
             default:
                 return state

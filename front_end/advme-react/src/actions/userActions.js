@@ -18,7 +18,7 @@ export const newUser = (inputs) => {
                 if(data.error)
                     return dispatch({type: 'INVALID_USER', error: data.error})
                 else
-                    dispatch({type: 'NEW_USER', user: data.data})
+                    return dispatch({type: 'NEW_USER', user: data.data})
             })
             .catch(error => console.log(error.message))
         };
@@ -69,19 +69,29 @@ export const checkLogin = () => {
         .then(resp => resp.json())
         .then(data => {
             if (data.sessh){
+             
                 fetch(`http://localhost:3000/user/${data.sessh}`,{
                     credentials: 'include'
                 })
                 .then(resp => resp.json())
                 .then(data => {
-                    if(data.error)
-                        return dispatch({type: 'INVALID_USER', error: data.error})
-                    else
+                    if(data.data){
                         return dispatch({type: 'GET_USER', user: data.data})
+                    } 
+                    else
+                        return dispatch({type: 'INVALID_USER', error: data.error})
                 })
             }
+            else if(data.no_sessh)
+                        return dispatch({type: 'USER_LOG'})
     
         })
 
+    }
+}
+
+export const setLoading = () => {
+    return(dispatch) => {
+        return dispatch({type: 'USER_LOG'})
     }
 }
