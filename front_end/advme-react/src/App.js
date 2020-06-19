@@ -8,16 +8,13 @@ import UserContainer from './containers/UserContainer';
 import NavBar from './components/NavBar';
 import Logout from './components/Logout';
 import SpinnerPage from './components/SpinnerPage';
-import Animation from './components/Animation';
-import Animation2 from './components/Animation2';
-import Animation3 from './components/Animation3';
-import Animation4 from './components/Animation4';
+import AnimationContainer from './containers/AnimationContainer';
+import {setType} from './actions/animationActions';
 import {logout, checkLogin, setLoading} from './actions/userActions';
 
 class App extends Component{
   state={
-    links: [],
-    type: 1
+    links: []
   }
 
   redirectToProfile = () => {
@@ -63,47 +60,32 @@ class App extends Component{
 
 
   handleKey = (event) => {
-    if(event.key === "w"){
-      this.setState({
-        ...this.state,
-        type: 2
-      })
+    switch(event.key){
+      case "w":
+          this.props.setType(2)
+          break
+      case "s":
+        this.props.setType(1)
+        break
+      case "a":
+          this.props.setType(3)
+          break
+      case "d":
+          this.props.setType(4)
+          break
+      default:
+        break
     }
-    else if(event.key === "s"){
-      this.setState({
-        ...this.state,
-        type: 1
-      })
-    }
-    else if(event.key === "a"){
-      this.setState({
-        ...this.state,
-        type: 3
-      })
-    }
-    else if(event.key === "d"){
-      this.setState({
-        ...this.state,
-        type: 4
-      })
-    }
-    console.log(this.state)
   }
 
-  renderAnimation = () => {
-    if (this.state.type === 1) return <Animation />
-    else if (this.state.type === 2) return <Animation2 />
-    else if (this.state.type === 3) return <Animation3 />
-    else if (this.state.type === 4) return <Animation4 />
-    return
-  }
+ 
 
   render(){
   return (
     <div className="App">
       <header className="App-header">
       <h1>ADVANCEME</h1>
-      {/* <div>{this.renderAnimation()}<br/></div> */}
+      <div className='animation'><AnimationContainer /></div>
       <div className="ContentBox1">
       <div className="ContentBox2">
         <Router>
@@ -141,7 +123,8 @@ const mapDispatchToProps = dispatch => {
   return{
       logout: () => dispatch(logout()),
       checkLogin: () => dispatch(checkLogin()),
-      setLoading: () => dispatch(setLoading())
+      setLoading: () => dispatch(setLoading()),
+      setType: (num) => dispatch(setType(num))
   }
 }
 

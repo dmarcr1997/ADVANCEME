@@ -6,7 +6,8 @@ const userReducer = (state={
     skills: [],
     loggedIn: false,
     error: '',
-    loading: false
+    loading: false,
+    type: 1
     }, action) => {
         switch(action.type){
             case 'USER_LOG':
@@ -74,6 +75,12 @@ const userReducer = (state={
                     loggedIn: false,
                     error: '',
                     loading: false
+                }
+            case 'SET_TYPE':
+                debugger
+                return{
+                    ...state,
+                    type: action.direction
                 }
             default:
                 return state

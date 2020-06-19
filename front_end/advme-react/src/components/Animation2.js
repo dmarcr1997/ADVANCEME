@@ -3,26 +3,18 @@ import React, { useState, useEffect } from 'react';
 const Animation2 = (props) =>{
     const [img, setImage] = useState(0);
     let count = 0;
-    
-    let widthSize = '20%';
-    let heightSize = '15%';
 
     const char1Back = require('../AnimationForReact/Char3/Char3Back/char3Back.jpg');
     const char1BackWalk = require('../AnimationForReact/Char3/Char3Back/char3BackWalk2.jpg');
     const char1BackWalk2 = require('../AnimationForReact/Char3/Char3Back/char3BackWalk3.jpg');
     
-    
-    const charStyle = {
-        width: widthSize,
-        height: heightSize
-    }
     let pictures = [char1Back, char1BackWalk, char1BackWalk2];
     
 
     useEffect(() => {
         const interval = setInterval(() => {
             setImage((img) => {
-                img = <img src={pictures[count]} style={charStyle} alt={`img${count+1}`} />
+                img = <img src={pictures[count]} style={props.style} alt={`img${count+1}`} />
                 if (count === 2) count = 1
                 else count++
                 return img
