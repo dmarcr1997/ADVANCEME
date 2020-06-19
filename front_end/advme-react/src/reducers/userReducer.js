@@ -23,6 +23,7 @@ const userReducer = (state={
                     loading: false
                 }
             case 'NEW_USER':
+                debugger
                 return{
                     id: action.user.id,
                     username: action.user.attributes.username,
@@ -77,7 +78,6 @@ const userReducer = (state={
                     loading: false
                 }
             case 'SET_TYPE':
-                debugger
                 return{
                     ...state,
                     type: action.direction

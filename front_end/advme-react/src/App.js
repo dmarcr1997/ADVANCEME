@@ -43,7 +43,6 @@ class App extends Component{
   
   addLinks = (navLinks) => {
     this.setState({
-      ...this.state,
       links: navLinks
     })
     return console.log('New Links')
