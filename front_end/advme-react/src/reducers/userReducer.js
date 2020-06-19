@@ -25,6 +25,7 @@ const userReducer = (state={
             case 'NEW_USER':
                 debugger
                 return{
+                    ...state,
                     id: action.user.id,
                     username: action.user.attributes.username,
                     userLevel: allSkills(action.user.attributes.user_level,false),
@@ -35,6 +36,7 @@ const userReducer = (state={
                 }
             case 'GET_USER':
                 return{
+                    ...state,
                     username: action.user.attributes.username,  
                     userLevel: action.user.attributes.user_level, 
                     id: action.user.id, 
@@ -68,6 +70,7 @@ const userReducer = (state={
                 }
             case 'LOGOUT':
                 return{
+                    ...state,
                     id: '',
                     username: '',
                     userLevel: 0,

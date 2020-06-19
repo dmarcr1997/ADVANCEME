@@ -15,12 +15,12 @@ class AnimationContainer extends Component{
             height: heightSize,
 
         }
-       
         if (this.props.type === 1) return <Animation style={charStyle}/>
         else if (this.props.type === 2) return <Animation2 style={charStyle}/>
         else if (this.props.type === 3) return <Animation3 style={charStyle}/>
         else if (this.props.type === 4) return <Animation4 style={charStyle}/>
         return
+    
     }
 
     render() {

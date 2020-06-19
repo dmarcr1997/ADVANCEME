@@ -7,7 +7,7 @@ import UserFormContainer from './containers/UserFormContainer.js';
 import UserContainer from './containers/UserContainer';
 import NavBar from './components/NavBar';
 import Logout from './components/Logout';
-import SpinnerPage from './components/SpinnerPage';
+import Loading from './components/Loading';
 import AnimationContainer from './containers/AnimationContainer';
 import {setType} from './actions/animationActions';
 import {logout, checkLogin, setLoading} from './actions/userActions';
@@ -20,7 +20,9 @@ class App extends Component{
   redirectToProfile = () => {
     while(this.props.loading === true){
       return(
-        <Redirect to='/loading' />
+        <div className='loading'>
+          <Redirect to='/loading' />
+        </div>
       )
     }
     if (this.props.loggedIn === true)
@@ -50,10 +52,10 @@ class App extends Component{
  
   componentDidMount(){
     this.props.setLoading()
-    this.props.checkLogin()
+    
     setTimeout(() => {
-      console.log('done loading')
-    }, 4000)
+      this.props.checkLogin()
+    }, 5000)
     window.addEventListener('keypress', this.handleKey)
   }
 
@@ -96,7 +98,7 @@ class App extends Component{
           <Route path='/skills' render={(props) => <SkillsGoalsContainer {...props} links={['home', 'goals', 'logout']} type='skills' renderLinks={this.addLinks}/>} />
           <Route path='/goals' render={(props) => <SkillsGoalsContainer {...props} links={['home', 'skills', 'logout']} type='goals' renderLinks={this.addLinks}/>} />
           <Route path='/logout' render={(props) => <Logout {...props} userLogout={this.props.logout}/> } />
-          <Route path='/loading'render={(props) => <SpinnerPage {...props} renderLinks={this.addLinks}/>} />
+          <Route path='/loading'render={(props) => <Loading {...props} renderLinks={this.addLinks}/>} />
         </Router>
         </div>
         </div>
