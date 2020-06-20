@@ -1,41 +1,26 @@
 import React, { Component } from 'react';
-import Skill from '../components/Skill';
 import Goal from '../components/Goal';
 import Form from '../components/Form';
-import '../App.css'
+import '../App.css';
 import { connect }from 'react-redux';
-import {newSkill, increaseSkill} from '../actions/skillActions';
 import {newGoal, endGoal} from '../actions/goalActions';
-class Skills extends Component{
+
+class GoalsContainer extends Component{
     state = {
         toggle: false,
         currentUser: '',
         type: ''
     };
-    
-    renderGoalsOrSkills = () =>{
-        switch(this.state.type){
-            case 'skills':
-                return(
-                <div className='skillContainer'>
-                <h3>Skills</h3>
-                {this.props.skills.map((skill => <Skill user_id={this.props.user_id} skill={skill} increase={this.props.increaseSkill}/>))}
-                <button onClick={() => this.toggle()}>New Skill</button>
-                {this.renderForm(['name'], this.handleSkillSubmit)}
-                </div>
-                )
-            case 'goals':
-                return(
-                    <div className='goalContainer'>
-                    {this.renderGoalTable()}
-                    <button onClick={() => this.toggle()}>New Goal</button>
-                    {this.renderForm(['name'], this.handleGoalSubmit, true)}
-                    </div>
-                    )
-            default:
-                return(<div>Go Back to Home page</div>)
-        }
+    renderGoals = () => {
+        return(
+            <div className='goalContainer'>
+            {this.renderGoalTable()}
+            <button onClick={() => this.toggle()}>New Goal</button>
+            {this.renderForm(['name'], this.handleSubmit)}
+            </div>
+        )
     }
+
     renderGoalTable = () =>{
         if(this.props.goals.length > 0){
             return(
@@ -58,40 +43,36 @@ class Skills extends Component{
         this.props.renderLinks(links)
         this.setState({
             currentUser: this.props.user_id,
-            type: this.props.type
         })
     }
 
-    handleSkillSubmit = event => {
-        event.preventDefault();
-        this.props.newSkill(event.target.name.value, event.target.hidden.value)
-        this.toggle()
-    }
-
-    handleGoalSubmit = event => {
+    
+    handleSubmit = event => {
         event.preventDefault();
         this.props.newGoal(event.target.name.value, event.target.datetime.value, event.target.hidden.value)
         this.toggle()
     }
+
+      
     toggle = () =>{
         let current = this.state.toggle
         this.setState({
             toggle: !current
         })
     }
-    
-    renderForm = (inp, func, date) =>{
+
+    renderForm = (inp, func) =>{
         const formInputs = inp;
         if(this.state.toggle === true)
-        return(<Form callBack={func} hasDateTime={date} inputs={formInputs} hasHidden={true} hiddenVal={this.props.user_id}/>)
+        return(<Form callBack={func} hasDateTime={true} inputs={formInputs} hasHidden={true} hiddenVal={this.props.user_id}/>)
         else
         return
     }
+
     render(){
-        console.log(this.props)
         return(
             <>
-            {this.renderGoalsOrSkills()}
+            {this.renderGoals()}
             </>
         )
     }   
@@ -100,20 +81,16 @@ class Skills extends Component{
 const mapStateToProps = state => {
     return({
       user: state.username,
-      skills: state.skills,
       goals: state.goals,
       user_id: state.id
     })
   }
   const mapDispatchToProps = dispatch => {
     return{
-        newSkill: (skillData, id) => dispatch(newSkill(skillData, id)),
-        increaseSkill: (skill_id, user_id) => dispatch(increaseSkill(skill_id, user_id)),
         newGoal: (goalName, goalDate, id) => dispatch(newGoal(goalName, goalDate, id)),
         endGoal: (goal_id, user_id) => dispatch(endGoal(goal_id, user_id))
     }
   }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Skills)
-
+export default connect(mapStateToProps, mapDispatchToProps)(GoalsContainer)

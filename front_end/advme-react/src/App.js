@@ -2,13 +2,14 @@ import React,{ Component } from 'react';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import './App.css';
 import { connect } from 'react-redux';
-import SkillsGoalsContainer from './containers/SkillsGoalsContainer';
+import AnimationContainer from './containers/AnimationContainer'
+import GoalsContainer from './containers/GoalsContainer';
+import SkillsContainer from './containers/SkillsContainer';
 import UserFormContainer from './containers/UserFormContainer.js';
 import UserContainer from './containers/UserContainer';
-import NavBar from './components/NavBar';
 import Logout from './components/Logout';
 import Loading from './components/Loading';
-import AnimationContainer from './containers/AnimationContainer';
+import NavBar from './components/NavBar';
 import {setType} from './actions/animationActions';
 import {logout, checkLogin, setLoading} from './actions/userActions';
 
@@ -95,8 +96,8 @@ class App extends Component{
           <Route path='/login' exact render={(props) => <UserFormContainer {...props} type={'login'} renderLinks={this.addLinks}/> } />
           <Route path='/signup' exact render={(props) => <UserFormContainer {...props} type={'signup'} renderLinks={this.addLinks}/> } />
           <Route path='/home' render={(props) => <UserContainer {...props} renderLinks={this.addLinks}/>} />
-          <Route path='/skills' render={(props) => <SkillsGoalsContainer {...props} links={['home', 'goals', 'logout']} type='skills' renderLinks={this.addLinks}/>} />
-          <Route path='/goals' render={(props) => <SkillsGoalsContainer {...props} links={['home', 'skills', 'logout']} type='goals' renderLinks={this.addLinks}/>} />
+          <Route path='/skills' render={(props) => <SkillsContainer {...props} links={['home', 'goals', 'logout']} renderLinks={this.addLinks}/>} />
+          <Route path='/goals' render={(props) => <GoalsContainer {...props} links={['home', 'skills', 'logout']} renderLinks={this.addLinks}/>} />
           <Route path='/logout' render={(props) => <Logout {...props} userLogout={this.props.logout}/> } />
           <Route path='/loading'render={(props) => <Loading {...props} renderLinks={this.addLinks}/>} />
         </Router>

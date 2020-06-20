@@ -1,7 +1,7 @@
 
 
 export const newUser = (inputs) => {
-        let userData = {'users': inputs}
+       let userData = {'users': inputs}
        return (dispatch) => {
            fetch('http://localhost:3000/signup', {
                 method: 'POST',
@@ -14,7 +14,6 @@ export const newUser = (inputs) => {
             })
             .then(resp => resp.json())
             .then(data => { 
-                debugger
                 if(data.error)
                     return dispatch({type: 'INVALID_USER', error: data.error})
                 else
