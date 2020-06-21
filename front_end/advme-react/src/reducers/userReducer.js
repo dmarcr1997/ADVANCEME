@@ -9,7 +9,8 @@ const userReducer = (state={
     loggedIn: false,
     error: '',
     loading: false,
-    type: 1
+    type: 1,
+    trainDates: []
     }, action) => {
         switch(action.type){
             case 'USER_LOG':
@@ -33,7 +34,8 @@ const userReducer = (state={
                     goals: allGoals(action.user.attributes.goals, false),
                     skills: allSkills(action.user.attributes.skills, false),
                     loggedIn: true,
-                    loading: false
+                    loading: false,
+                    trainDates: action.user.attributes.train_dates
                 }
             case 'GET_USER':
                 return{
@@ -44,30 +46,36 @@ const userReducer = (state={
                     skills: allSkills(action.user.attributes.skills,false), 
                     goals: allGoals(action.user.attributes.goals, false),
                     loggedIn: true,
-                    loading: false
+                    loading: false,
+                    trainDates: action.user.attributes.train_dates
                 }
             case 'NEW_SKILL':
+                debugger
                 return{
                     ...state, 
-                    skills: allSkills(action.action.data, true)
+                    skills: allSkills(action.action.data.attributes.skills, false)
                 }
             case 'INCREASE_SKILL':
+                debugger
                return {
                    ...state,
-                   userLevel: updateUserLevel(state.userLevel, 'skill'),
-                   skills: allSkills(action.action.data, true)
+                   userLevel: action.action.data.attributes.user_level,
+                   skills: allSkills(action.action.data.attributes.skills, false),
+                   trainDates: action.action.data.attributes.train_dates
                }
             case 'NEW_GOAL':
-                
+                debugger
                 return{
                     ...state, 
-                    goals: allGoals(action.action.data, true)
+                    goals: allGoals(action.action.data.attributes.goals, false)
                 }
             case 'END_GOAL':
+                debugger
                 return{
                     ...state, 
-                    userLevel: updateUserLevel(state.userLevel,'goal'),
-                    goals: allGoals(action.action.data, true)
+                    userLevel: action.action.data.attributes.user_level,
+                    goals: allGoals(action.action.data.attributes.goals, false),
+                    trainDates: action.action.data.attributes.train_dates
                 }
             case 'LOGOUT':
                 return{
@@ -79,7 +87,8 @@ const userReducer = (state={
                     skills: [],
                     loggedIn: false,
                     error: '',
-                    loading: false
+                    loading: false,
+                    trainDates: []
                 }
             case 'SET_TYPE':
                 return{

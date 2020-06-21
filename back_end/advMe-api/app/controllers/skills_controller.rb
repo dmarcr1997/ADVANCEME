@@ -6,7 +6,7 @@ class SkillsController < ApplicationController
         skill.level = 0
         skill.user = user
         if skill.save
-            render json: SkillSerializer.new(user.skills)
+            render json: UserSerializer.new(user)
         else
             render json: {error: 'Invalid Skill'}
         end
@@ -19,9 +19,17 @@ class SkillsController < ApplicationController
         user.save
         skill.level += 0.25
         skill.last_train = DateTime.now()
-        skill.save
-        allSkills = user.skills
-        render json: SkillSerializer.new(allSkills)
+        if skill.save
+            todays_date = Time.now.strftime("%m/%d/%Y")
+            train = TrainDate.find_or_create_by(date: todays_date)
+            train.count += 1
+            train.user = user
+            train.save
+            allSkills = user.skills
+            render json: UserSerializer.new(user)
+        else
+            render json: {error: 'invalid update'}
+        end
     end
 
     private

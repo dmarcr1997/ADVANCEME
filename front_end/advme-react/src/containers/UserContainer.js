@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Graph from '../components/Graph';
 import '../App.css';
 class UserContainer extends Component{
     componentDidMount(){
@@ -34,6 +35,13 @@ class UserContainer extends Component{
         }
         return displaySkills.map(skill => <><div><label>Name: </label>{skill.name}<br/><label>Level: </label>{skill.level}</div><br/></>)
     }
+
+    renderGraph(){
+        return(
+            <Graph />
+        )
+    }
+
     render(){
         console.log(this.props.user)
         return(
@@ -44,7 +52,7 @@ class UserContainer extends Component{
                     Name: {this.props.user}<br/>
                     Level: {this.props.userLevel}
                 </p>
-
+                <div>{this.renderGraph()}</div>
                 <p>
                     Upcoming Goals:{this.renderGoals()}
                 </p>

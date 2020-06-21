@@ -7,7 +7,7 @@ class GoalsController < ApplicationController
         goal.exp = 10
         goal.ended = false
         if goal.save
-            render json: GoalSerializer.new(user.goals)
+            render json: UserSerializer.new(user)
         else
             render json: {error: 'Invalid goal'}
         end
@@ -19,9 +19,13 @@ class GoalsController < ApplicationController
         goal.update(ended: true)
         user.user_level += 1
         user.save
-        sortedGoals = user.goals.sort_by { |obj| obj.name }
+        todays_date = Time.now.strftime("%m/%d/%Y")
         if goal.save 
-            render json: GoalSerializer.new(sortedGoals)
+            train = TrainDate.find_or_create_by(date: todays_date)
+            train.count +=1
+            train.user = user
+            train.save
+            render json: UserSerializer.new(user)
         else
             render json: {error: 'Invalid Update'}
         end
