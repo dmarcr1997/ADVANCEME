@@ -9,7 +9,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     origins 'https://advance-4f4a0.firebaseapp.com/'
 
-    resource '*',
+    resource 'http://localhost:3006/',
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
       credentials: true
