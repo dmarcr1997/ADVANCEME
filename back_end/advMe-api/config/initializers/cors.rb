@@ -7,9 +7,9 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'https://advance-4f4a0.firebaseapp.com/'
+    origins 'https://advance-4f4a0.firebaseapp.com'
 
-    resource 'http://localhost:3006/',
+    resource '*',
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
       credentials: true
@@ -17,3 +17,4 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
 end
 
 Rails.application.config.action_controller.forgery_protection_origin_check = false
+# 

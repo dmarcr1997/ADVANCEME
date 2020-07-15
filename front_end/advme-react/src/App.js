@@ -12,8 +12,9 @@ import Loading from './components/Loading';
 import NavBar from './components/NavBar';
 import {setType} from './actions/animationActions';
 import {logout, checkLogin, setLoading} from './actions/userActions';
-
+import ReactFireMixin from 'reactfire'
 class App extends Component{
+  mixins: [ReactFireMixin]
   state={
     links: []
   }

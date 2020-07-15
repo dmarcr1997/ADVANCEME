@@ -3,7 +3,7 @@
 export const newUser = (inputs) => {
        let userData = {'users': inputs}
        return (dispatch) => {
-           fetch('http://localhost:3000/signup', {
+           fetch('https://advanceme.herokuapp.com/signup', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -27,7 +27,7 @@ export const newUser = (inputs) => {
 export const getUser = (inputs) => {
     let userData = {'users': inputs}
         return (dispatch) => {
-            fetch('http://localhost:3000/login',{
+            fetch('https://advanceme.herokuapp.com/login',{
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -50,7 +50,7 @@ export const getUser = (inputs) => {
 
 export const logout = () => {
     return(dispatch) => {
-        fetch('http://localhost:3000/logout',{
+        fetch('https://advanceme.herokuapp.com/logout',{
             credentials: 'include'
         })
         .then(resp => resp.json())
@@ -62,14 +62,14 @@ export const logout = () => {
 
 export const checkLogin = () => {
     return(dispatch) => {
-        fetch('http://localhost:3000/',{
+        fetch('https://advanceme.herokuapp.com/',{
             credentials: 'include'
         })
         .then(resp => resp.json())
         .then(data => {
             if (data.sessh){
              
-                fetch(`http://localhost:3000/user/${data.sessh}`,{
+                fetch(`https://advanceme.herokuapp.com/user/${data.sessh}`,{
                     credentials: 'include'
                 })
                 .then(resp => resp.json())

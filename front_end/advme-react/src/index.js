@@ -6,7 +6,7 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import thunk from 'redux-thunk';
 import './index.css';
 import App from './App';
-// import NavBar from './NavBar';
+import Firebase, { FirebaseContext } from './components/Firebase';
 import userReducer from './reducers/userReducer'
 const store = createStore(userReducer, composeWithDevTools(applyMiddleware(thunk)))
 
